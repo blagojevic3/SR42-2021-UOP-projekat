@@ -35,6 +35,62 @@ public class Knjiga {
 		this.prezime_pisca = prezime_pisca;
 		this.id = id;
 	}
+
+	public String getNaslov() {
+		return naslov;
+	}
+
+	public void setNaslov(String naslov) {
+		this.naslov = naslov;
+	}
+
+	public String getOriginalni_naslov() {
+		return originalni_naslov;
+	}
+
+	public void setOriginalni_naslov(String originalni_naslov) {
+		this.originalni_naslov = originalni_naslov;
+	}
+
+	public int getGodina_objave() {
+		return godina_objave;
+	}
+
+	public void setGodina_objave(int godina_objave) {
+		this.godina_objave = godina_objave;
+	}
+
+	public String getOpis_knjige() {
+		return opis_knjige;
+	}
+
+	public void setOpis_knjige(String opis_knjige) {
+		this.opis_knjige = opis_knjige;
+	}
+
+	public String getIme_pisca() {
+		return ime_pisca;
+	}
+
+	public void setIme_pisca(String ime_pisca) {
+		this.ime_pisca = ime_pisca;
+	}
+
+	public String getPrezime_pisca() {
+		return prezime_pisca;
+	}
+
+	public void setPrezime_pisca(String prezime_pisca) {
+		this.prezime_pisca = prezime_pisca;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
     
     
 
