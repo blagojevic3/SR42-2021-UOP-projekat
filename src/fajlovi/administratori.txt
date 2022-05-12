@@ -1,2 +1,0 @@
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123

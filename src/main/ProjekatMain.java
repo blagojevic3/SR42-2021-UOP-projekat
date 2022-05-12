@@ -72,24 +72,24 @@ public class ProjekatMain {
 	
 	}
 	
-	public static void ispisiSvePodatke(Biblioteka prodavnica) {
-		for(Administrator administrator : prodavnica.getAdministratori()) {
+	public static void ispisiSvePodatke(Biblioteka biblioteka) {
+		for(Administrator administrator : biblioteka.getAdministratori()) {
 			System.out.println(administrator + "\n");
 		}
 		
-		for(Bibliotekar bibliotekar : prodavnica.getBibliotekari()) {
+		for(Bibliotekar bibliotekar : biblioteka.getBibliotekari()) {
 			System.out.println(bibliotekar + "\n");
 		}
-		for(Clan clan : prodavnica.getClanovi()) {
+		for(Clan clan : biblioteka.getClanovi()) {
 			System.out.println(clan + "\n");
 		}
-		for(Knjiga knjiga : prodavnica.getKnjige()) {
+		for(Knjiga knjiga : biblioteka.getKnjige()) {
 			System.out.println(knjiga + "\n");
 		}
-		for(PrimjerakKnjige primjerak : prodavnica.getPrimjerci()) {
+		for(PrimjerakKnjige primjerak : biblioteka.getPrimjerci()) {
 			System.out.println(primjerak + "\n");
 		}
-		for(Zanr zanr : prodavnica.getZanrovi()) {
+		for(Zanr zanr : biblioteka.getZanrovi()) {
 			System.out.println(zanr + "\n");
 		}
 	}
