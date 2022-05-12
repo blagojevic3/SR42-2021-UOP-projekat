@@ -12,7 +12,7 @@ public class Zaposleni {
     protected String plata;
     protected String korisnicko_ime;
     protected String lozinka;
-    protected int id;
+    protected String id;
     
     public Zaposleni() {
     	this.ime = "";
@@ -23,11 +23,11 @@ public class Zaposleni {
 		this.plata = "";
 		this.korisnicko_ime = "";
 		this.lozinka = "";
-		this.id = 0;
+		this.id ="";
     }
     
     public Zaposleni(String ime, String prezime, int jmbg, String adresa, Pol pol, String plata,
-			String korisnicko_ime, String lozinka, int id) {
+			String korisnicko_ime, String lozinka, String id) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -39,6 +39,7 @@ public class Zaposleni {
 		this.lozinka = lozinka;
 		this.id = id;
 	}
+
 	public String getIme() {
 		return ime;
 	}
@@ -87,10 +88,10 @@ public class Zaposleni {
 	public void setLozinka(String lozinka) {
 		this.lozinka = lozinka;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

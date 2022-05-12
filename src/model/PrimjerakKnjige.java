@@ -11,7 +11,7 @@ public class PrimjerakKnjige {
     protected int godina_stampanja;
     protected Jezik jezik_stampanja;
     protected boolean iznajmljena;
-	protected int id; 
+	protected String id; 
 	protected TipPoveza tip;
 	
 	public PrimjerakKnjige() {
@@ -21,12 +21,12 @@ public class PrimjerakKnjige {
 		this.godina_stampanja = 0;
 		this.jezik_stampanja = null;
 		this.iznajmljena = false;
-		this.id = 0;
+		this.id = "";
 		this.tip = null;
 	}
 	
 	public PrimjerakKnjige(Knjiga original, int broj_strana, int godina_stampanja, Jezik jezik_stampanja,
-			boolean iznajmljena, int id, TipPoveza tip) {
+			boolean iznajmljena, String id, TipPoveza tip) {
 		super();
 		this.original = original;
 		this.broj_strana = broj_strana;
@@ -77,11 +77,11 @@ public class PrimjerakKnjige {
 		this.iznajmljena = iznajmljena;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

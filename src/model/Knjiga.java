@@ -12,7 +12,7 @@ public class Knjiga {
     protected String opis_knjige;
     protected String ime_pisca;
     protected String prezime_pisca;
-    protected int id;
+    protected String id;
     
     public Knjiga() {
     	this.naslov = "";
@@ -21,11 +21,11 @@ public class Knjiga {
 		this.opis_knjige = "";
 		this.ime_pisca = "";
 		this.prezime_pisca = "";
-		this.id = 0;
+		this.id = "";
     }
     
 	public Knjiga(String naslov, String originalni_naslov, int godina_objave, String opis_knjige, String ime_pisca,
-			String prezime_pisca, int id) {
+			String prezime_pisca, String id) {
 		super();
 		this.naslov = naslov;
 		this.originalni_naslov = originalni_naslov;
@@ -84,11 +84,11 @@ public class Knjiga {
 		this.prezime_pisca = prezime_pisca;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
     

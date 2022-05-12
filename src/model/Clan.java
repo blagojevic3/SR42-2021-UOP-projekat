@@ -10,7 +10,7 @@ public class Clan {
     protected int jmbg;
     protected String adresa;
     protected boolean aktivan;
-    protected int id;
+    protected String id;
     protected ClanskaKarta kartica;
     
     public Clan() {
@@ -19,11 +19,11 @@ public class Clan {
 		this.jmbg = 0;
 		this.adresa = "";
 		this.aktivan = false;
-		this.id = 0;
+		this.id = "";
 		this.kartica = null;
     }
     
-	public Clan(String ime, String prezime, int jmbg, String adresa, boolean aktivan, int id, ClanskaKarta kartica) {
+	public Clan(String ime, String prezime, int jmbg, String adresa, boolean aktivan, String id, ClanskaKarta kartica) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -74,11 +74,11 @@ public class Clan {
 		this.aktivan = aktivan;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
