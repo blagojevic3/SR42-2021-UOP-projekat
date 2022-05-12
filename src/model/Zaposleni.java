@@ -6,7 +6,7 @@ public class Zaposleni {
 
     protected String ime;
     protected String prezime;
-	protected int jmbg;
+	protected String jmbg;
     protected String adresa;
     protected Pol pol;
     protected String plata;
@@ -17,7 +17,7 @@ public class Zaposleni {
     public Zaposleni() {
     	this.ime = "";
 		this.prezime = "";
-		this.jmbg = 0;
+		this.jmbg = "";
 		this.adresa = "";
 		this.pol = Pol.muski;
 		this.plata = "";
@@ -26,8 +26,8 @@ public class Zaposleni {
 		this.id ="";
     }
     
-    public Zaposleni(String ime, String prezime, int jmbg, String adresa, Pol pol, String plata,
-			String korisnicko_ime, String lozinka, String id) {
+    public Zaposleni(String id,String ime, String prezime, String jmbg, String adresa, Pol pol, String plata,
+			String korisnicko_ime, String lozinka) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -52,10 +52,10 @@ public class Zaposleni {
 	public void setPrezime(String prezime) {
 		this.prezime = prezime;
 	}
-	public int getJmbg() {
+	public String getJmbg() {
 		return jmbg;
 	}
-	public void setJmbg(int jmbg) {
+	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
 	public String getAdresa() {

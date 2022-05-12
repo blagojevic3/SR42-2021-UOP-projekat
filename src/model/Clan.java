@@ -7,23 +7,23 @@ public class Clan {
 
     protected String ime;
     protected String prezime;
-    protected int jmbg;
+    protected String jmbg;
     protected String adresa;
     protected boolean aktivan;
     protected String id;
-    protected ClanskaKarta kartica;
+    //protected ClanskaKarta kartica;
     
     public Clan() {
     	this.ime = "";
 		this.prezime = "";
-		this.jmbg = 0;
+		this.jmbg = "";
 		this.adresa = "";
 		this.aktivan = false;
 		this.id = "";
-		this.kartica = null;
+		//this.kartica = null;
     }
     
-	public Clan(String ime, String prezime, int jmbg, String adresa, boolean aktivan, String id, ClanskaKarta kartica) {
+	public Clan(String id, String ime, String prezime, String jmbg, String adresa, boolean aktivan) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -31,7 +31,7 @@ public class Clan {
 		this.adresa = adresa;
 		this.aktivan = aktivan;
 		this.id = id;
-		this.kartica = kartica;
+		//this.kartica = kartica;
 	}
 
 	public String getIme() {
@@ -50,11 +50,11 @@ public class Clan {
 		this.prezime = prezime;
 	}
 
-	public int getJmbg() {
+	public String getJmbg() {
 		return jmbg;
 	}
 
-	public void setJmbg(int jmbg) {
+	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
 
@@ -84,14 +84,15 @@ public class Clan {
 	
 	
 	
-	public ClanskaKarta getKartica() {
+	/*public ClanskaKarta getKartica() {
 		return kartica;
 	}
 
 	public void setKartica(ClanskaKarta kartica) {
 		this.kartica = kartica;
 	}
-
+	*/
+	
 	@Override
 	public String toString() {
 		return "CLAN 	   \nID: " + id+
@@ -99,8 +100,8 @@ public class Clan {
 						  "\nPrezime:" + prezime +
 						  "\nJMBG:" + jmbg +
 						  "\nAdresa" + adresa +
-						  "\nAktivan"+ aktivan+
-						  "\nClanska karta: " + kartica.toString();
+						  "\nAktivan"+ aktivan;
+						  //"\nClanska karta: " + kartica.toString();//
 						  
 						  
 	}

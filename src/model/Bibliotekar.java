@@ -11,9 +11,9 @@ public class Bibliotekar extends Zaposleni {
 		super();
 	}
 
-	public Bibliotekar(String ime, String prezime, int jmbg, String adresa, Pol pol, String plata,
-			String korisnicko_ime, String lozinka, String id) {
-		super(ime, prezime, jmbg, adresa, pol, plata, korisnicko_ime, lozinka, id);
+	public Bibliotekar(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, String plata,
+			String korisnicko_ime, String lozinka) {
+		super(id, ime, prezime, jmbg, adresa, pol, plata, korisnicko_ime, lozinka);
 		
 	}
 

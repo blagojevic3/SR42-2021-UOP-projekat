@@ -24,8 +24,8 @@ public class Knjiga {
 		this.id = "";
     }
     
-	public Knjiga(String naslov, String originalni_naslov, int godina_objave, String opis_knjige, String ime_pisca,
-			String prezime_pisca, String id) {
+	public Knjiga(String id, String naslov, String originalni_naslov, int godina_objave, String opis_knjige, String ime_pisca,
+			String prezime_pisca) {
 		super();
 		this.naslov = naslov;
 		this.originalni_naslov = originalni_naslov;

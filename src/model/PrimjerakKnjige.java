@@ -25,8 +25,8 @@ public class PrimjerakKnjige {
 		this.tip = null;
 	}
 	
-	public PrimjerakKnjige(Knjiga original, int broj_strana, int godina_stampanja, Jezik jezik_stampanja,
-			boolean iznajmljena, String id, TipPoveza tip) {
+	public PrimjerakKnjige(String id, Knjiga original, int broj_strana, int godina_stampanja, Jezik jezik_stampanja,
+			boolean iznajmljena, TipPoveza tip) {
 		super();
 		this.original = original;
 		this.broj_strana = broj_strana;
