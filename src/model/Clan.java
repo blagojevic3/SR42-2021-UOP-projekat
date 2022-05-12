@@ -11,6 +11,7 @@ public class Clan {
     protected String adresa;
     protected boolean aktivan;
     protected int id;
+    protected ClanskaKarta kartica;
     
     public Clan() {
     	this.ime = "";
@@ -19,9 +20,10 @@ public class Clan {
 		this.adresa = "";
 		this.aktivan = false;
 		this.id = 0;
+		this.kartica = null;
     }
     
-	public Clan(String ime, String prezime, int jmbg, String adresa, boolean aktivan, int id) {
+	public Clan(String ime, String prezime, int jmbg, String adresa, boolean aktivan, int id, ClanskaKarta kartica) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -29,6 +31,7 @@ public class Clan {
 		this.adresa = adresa;
 		this.aktivan = aktivan;
 		this.id = id;
+		this.kartica = kartica;
 	}
 
 	public String getIme() {
@@ -78,6 +81,28 @@ public class Clan {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
+	
+	public ClanskaKarta getKartica() {
+		return kartica;
+	}
 
+	public void setKartica(ClanskaKarta kartica) {
+		this.kartica = kartica;
+	}
+
+	@Override
+	public String toString() {
+		return "CLAN 	   \nID: " + id+
+						  "\nIme: " + ime +
+						  "\nPrezime:" + prezime +
+						  "\nJMBG:" + jmbg +
+						  "\nAdresa" + adresa +
+						  "\nAktivan"+ aktivan+
+						  "\nClanska karta: " + kartica.toString();
+						  
+						  
+	}
     
 }

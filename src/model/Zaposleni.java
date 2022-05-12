@@ -94,7 +94,20 @@ public class Zaposleni {
 		this.id = id;
 	}
 
-
+	@Override
+	public String toString() {
+		return "ZAPOSLENI \nID: " + id+
+						  "\nIme: " + ime +
+						  "\nPrezime:" + prezime +
+						  "\nJMBG:" + jmbg +
+						  "\nAdresa" + adresa +
+						  "\nPol" + pol +
+						  "\nPlata" + plata +
+						  "\nKorisnicko Ime:" + korisnicko_ime+
+						  "\nLozinka: " + lozinka; 
+						  
+						  
+	}
 	
 
 

@@ -36,5 +36,12 @@ public class Zanr {
 		this.opis = opis;
 	}
 
-    
+	@Override
+	public String toString() {
+		return "/nOznaka: " + oznaka+
+				"\nIme: " + opis;
+
+						  
+						  
+	}
 }

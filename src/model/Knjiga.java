@@ -92,6 +92,16 @@ public class Knjiga {
 		this.id = id;
 	}
     
-    
+	@Override
+	public String toString() {
+		return "Knjiga 	   \nID: " + id+
+						  "\nOriginalni naslov: " + originalni_naslov +
+						  "\nGodina objave:" + godina_objave +
+						  "\nOpis knjige:" + opis_knjige +
+						  "\nIme pisca" + ime_pisca +
+						  "\nPrezime pisca" + prezime_pisca; 
+						  
+						  
+	}
 
 }
