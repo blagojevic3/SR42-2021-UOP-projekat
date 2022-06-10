@@ -10,6 +10,7 @@ import model.Zanr;
 import enumeracije.Jezik;
 import enumeracije.Pol;
 import enumeracije.TipPoveza;
+import gui.GlavniProzor;
 
 public class ProjekatMain {
 	
@@ -69,7 +70,8 @@ public class ProjekatMain {
 		biblioteka.snimiPrimjerke(primjerci_FAJL);
 		biblioteka.snimiZanrove(zanrovi_FAJL);
 			
-	
+		GlavniProzor gp = new GlavniProzor();
+		gp.setVisible(true);
 	}
 	
 	public static void ispisiSvePodatke(Biblioteka biblioteka) {
@@ -93,5 +95,8 @@ public class ProjekatMain {
 			System.out.println(zanr + "\n");
 		}
 	}
+	
+
+	
 
 }

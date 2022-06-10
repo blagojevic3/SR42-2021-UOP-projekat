@@ -296,8 +296,7 @@ public class Biblioteka {
 				String prezime = split[2];
 				String jmbg = split[3];
 				String adresa = split[4];
-				int polInt = Integer.parseInt(split[5]);
-				Pol pol = Pol.values()[polInt];
+				Pol pol = Pol.valueOf(split[5]);
 				String plata = split[6];
 				String korisnicko_ime = split[7];
 				String lozinka = split[8];
@@ -323,8 +322,7 @@ public class Biblioteka {
 				String prezime = split[2];
 				String jmbg = split[3];
 				String adresa = split[4];
-				int polInt = Integer.parseInt(split[5]);
-				Pol pol = Pol.values()[polInt];
+				Pol pol = Pol.valueOf(split[5]);
 				String plata = split[6];
 				String korisnicko_ime = split[7];
 				String lozinka = split[8];
@@ -408,11 +406,9 @@ public class Biblioteka {
 				int broj_strana = Integer.parseInt(broj_stranaString);
 				String godina_stampanjaString = split[3];
 				int godina_stampanja = Integer.parseInt(godina_stampanjaString);
-				int jezikInt = Integer.parseInt(split[4]);
-				Jezik jezik = Jezik.values()[jezikInt];
+				Jezik jezik = Jezik.valueOf(split[4]);
 				boolean iznajmljena = Boolean.parseBoolean(split[5]);
-				int tipPovezaInt = Integer.parseInt(split[6]);
-				TipPoveza tip = TipPoveza.values()[tipPovezaInt];
+				TipPoveza tip = TipPoveza.valueOf(split[6]);
 				
 				
 				

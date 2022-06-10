@@ -99,7 +99,7 @@ public class PrimjerakKnjige {
 				"\nBroj strana: " + broj_strana +
 				"\nTip poveza:" + tip +
 				"\nGodina stampanja:" + godina_stampanja +
-				"\nJezik stampanja" + jezik_stampanja +
+				"\nJezik stampanja: " + jezik_stampanja +
 				"\nIznajmljena:" + iznajmljena;
 						  
 	}

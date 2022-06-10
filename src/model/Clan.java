@@ -84,14 +84,14 @@ public class Clan {
 	
 	
 	
-	/*public ClanskaKarta getKartica() {
-		return kartica;
-	}
-
-	public void setKartica(ClanskaKarta kartica) {
-		this.kartica = kartica;
-	}
-	*/
+//	public ClanskaKarta getKartica() {
+//		return kartica;
+//	}
+//
+//	public void setKartica(ClanskaKarta kartica) {
+//		this.kartica = kartica;
+//	}
+	
 	
 	@Override
 	public String toString() {
@@ -101,7 +101,7 @@ public class Clan {
 						  "\nJMBG:" + jmbg +
 						  "\nAdresa" + adresa +
 						  "\nAktivan"+ aktivan;
-						  //"\nClanska karta: " + kartica.toString();//
+//						  "\nClanska karta: " + kartica.toString();
 						  
 						  
 	}
