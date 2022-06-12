@@ -91,6 +91,14 @@ public class GlavniProzor extends JFrame{
 			}
 		});
 		
+		clanoviItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanoviProzor clanp = new ClanoviProzor(biblioteka);
+				clanp.setVisible(true);
+			}
+		});
+		
 
 	}
 	

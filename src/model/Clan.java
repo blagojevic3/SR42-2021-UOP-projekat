@@ -36,6 +36,16 @@ public class Clan {
 		this.obrisan = obrisan;
 		//this.kartica = kartica;
 	}
+	public Clan(String id, String ime, String prezime, String jmbg, String adresa, boolean aktivan) {
+		
+		this.ime = ime;
+		this.prezime = prezime;
+		this.jmbg = jmbg;
+		this.adresa = adresa;
+		this.aktivan = aktivan;
+		this.id = id;
+		//this.kartica = kartica;
+	}
 
 	public boolean isObrisan() {
 		return obrisan;
