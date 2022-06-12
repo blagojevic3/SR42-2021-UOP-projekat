@@ -83,6 +83,14 @@ public class GlavniProzor extends JFrame{
 			}
 		});
 		
+		tipoviClanarineItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanarineProzor cp = new ClanarineProzor(biblioteka);
+				cp.setVisible(true);
+			}
+		});
+		
 
 	}
 	

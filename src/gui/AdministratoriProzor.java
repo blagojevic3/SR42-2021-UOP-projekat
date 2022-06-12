@@ -93,16 +93,18 @@ public class AdministratoriProzor extends JFrame {
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String korisnickoIme = tableModel.getValueAt(red, 7).toString();
-					Administrator administrator = biblioteka.nadjiAdministratora(korisnickoIme);
+					String id = tableModel.getValueAt(red, 0).toString();
+					Administrator administrator = biblioteka.nadjiAdministratora(id);
 					
 					int izbor = JOptionPane.showConfirmDialog(null, 
 							"Da li ste sigurni da zelite da obrisete administratora?", 
-							korisnickoIme + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
+							id + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_OPTION) {
 						administrator.setObrisan(true);
 						tableModel.removeRow(red);
+						biblioteka.obrisiAdministratora(administrator);
 						biblioteka.snimiAdministratore(ProjekatMain.administratori_FAJL);
+
 					}
 				}
 			}
@@ -124,8 +126,8 @@ public class AdministratoriProzor extends JFrame {
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String korisnickoIme = tableModel.getValueAt(red, 7).toString();
-					Administrator administrator = biblioteka.nadjiAdministratora(korisnickoIme);
+					String id = tableModel.getValueAt(red, 0).toString();
+					Administrator administrator = biblioteka.nadjiAdministratora(id);
 					if(administrator == null) {
 						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja administratora sa tim korisnickim imenom", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {

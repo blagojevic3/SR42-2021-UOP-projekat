@@ -1,3 +1,4 @@
-123|Marko|Jovanovic|1231231231231|adresa1|muski|260.0|markoj|12345|false
-12341|velibor|blagojevic|1231233210123|aaa|muski||veliborb|1234|false
+123|Marko|Jovanovic|1231231231231|adresa1|muski|260.0|markoj|12345|true
 141|petar|petrovic|1233210000111|adresaadresa|muski|260rsd|petarp|lozinka|false
+sadasd|sadasd|sadasdsad|1313124214124|1313124214124|zenski|223|asdas|asdsa|true
+123|Marko|Jovanovic|1231231231231|adresa1|muski|260.0|markoj|12345|false

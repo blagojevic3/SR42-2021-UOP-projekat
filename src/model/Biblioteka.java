@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import enumeracije.Jezik;
 import enumeracije.Pol;
+import enumeracije.TipKarte;
 import enumeracije.TipPoveza;
 
 
@@ -42,6 +43,8 @@ public class Biblioteka {
     	this.knjige = new ArrayList<Knjiga>();
     	this.primjerci = new ArrayList<PrimjerakKnjige>();
     	this.zanrovi = new ArrayList<Zanr>();
+    	this.clanarine = new ArrayList<ClanskaKarta>();
+    	this.iznajmljivanja = new ArrayList<Iznajmljivanje>();
     	this.naziv = "";
     	this.adresa = "";
     	this.telefon = 0;
@@ -195,7 +198,7 @@ public class Biblioteka {
     	}
     	return null;
     }
-    public PrimjerakKnjige primjerak(String id) {
+    public PrimjerakKnjige nadjiPrimjerak(String id) {
     	for(PrimjerakKnjige primjerak:primjerci) {
     		if (primjerak.getId().equals(id)) {
     			return primjerak;
@@ -203,10 +206,26 @@ public class Biblioteka {
     	}
     	return null;
     }
-    public Zanr zanr(String oznaka) {
+    public Zanr nadjiZanr(String oznaka) {
     	for(Zanr zanr:zanrovi) {
     		if (zanr.getOznaka().equals(oznaka)) {
     			return zanr;
+    		}
+    	}
+    	return null;
+    }
+    public ClanskaKarta nadjiClanarinu(String id) {
+    	for(ClanskaKarta clanarina:clanarine) {
+    		if (clanarina.getId().equals(id)) {
+    			return clanarina;
+    		}
+    	}
+    	return null;
+    }
+    public Iznajmljivanje nadjiIznajmljivanje(String id) {
+    	for(Iznajmljivanje iznajmljivanje: iznajmljivanja) {
+    		if (iznajmljivanje.getId().equals(id)) {
+    			return iznajmljivanje;
     		}
     	}
     	return null;
@@ -336,7 +355,7 @@ public class Biblioteka {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (ClanskaKarta clanarina : clanarine) {
-				content += clanarina.getBroj() + "|" + clanarina.getCijena() + "|"
+				content += clanarina.getId() + "|" + clanarina.getCijena() + "|"
 				+ clanarina.getTipkarte()+"|"+ clanarina.getDatum_posljednje_uplate()+"|"
 				+ clanarina.getBroj_mjeseci() + "|" + clanarina.isObrisan()+"\n";
 			}
@@ -567,17 +586,16 @@ public class Biblioteka {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] split = line.split("\\|");
-				int broj = Integer.parseInt(split[0]);
+				String id = split[0];
 				double cijena = Double.parseDouble(split[1]);
-				String tipkarte = split[2];
-				LocalDate datum_posljednje_uplate = LocalDate.parse(split[3]);
+				TipKarte tipkarte = TipKarte.valueOf(split[2]);
+				String datum_posljednje_uplate = split[3];
 				int broj_mjeseci = Integer.parseInt(split[4]);	
 				boolean obrisan = Boolean.parseBoolean(split[5]);
 				
 				
 				
-				
-				ClanskaKarta clanarina = new ClanskaKarta(broj, cijena, tipkarte, datum_posljednje_uplate, broj_mjeseci, obrisan);
+				ClanskaKarta clanarina = new ClanskaKarta(id, cijena, tipkarte, datum_posljednje_uplate, broj_mjeseci, obrisan);
 				clanarine.add(clanarina);
 			}
 			reader.close();
@@ -633,7 +651,7 @@ public class Biblioteka {
     public void dodajClanarinu(ClanskaKarta clanarina) {
     	this.clanarine.add(clanarina);
     }
-    public void izbrisiIznajmljivanje(ClanskaKarta clanarina) {
+    public void izbrisiClanarinu(ClanskaKarta clanarina) {
     	this.clanarine.remove(clanarina);
     }
     

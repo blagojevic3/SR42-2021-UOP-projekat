@@ -13,13 +13,13 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import gui.formeAddEdit.BibliotekariForma;
-import main.ProjekatMain;
-import model.Administrator;
-import model.Biblioteka;
-import model.Bibliotekar;
 
-public class BibliotekariProzor extends JFrame{
+import gui.formeAddEdit.ClanarineForma;
+import main.ProjekatMain;
+import model.Biblioteka;
+import model.ClanskaKarta;
+
+public class ClanarineProzor extends JFrame {
 	
 	private JToolBar mainToolbar = new JToolBar();
 	private JButton btnAdd = new JButton();
@@ -27,13 +27,12 @@ public class BibliotekariProzor extends JFrame{
 	private JButton btnDelete = new JButton();
 	
 	private DefaultTableModel tableModel;
-	private JTable bibliotekariTabela;
-	
+	private JTable clanarineTabela;	
 	private Biblioteka biblioteka;
 	
-	public BibliotekariProzor(Biblioteka biblioteka) {
+	public ClanarineProzor(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
-		setTitle("Bibliotekari");
+		setTitle("Clanarine");
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -42,6 +41,7 @@ public class BibliotekariProzor extends JFrame{
 	}
 	
 	private void initGUI() {
+		
 		ImageIcon addIcon = new ImageIcon(getClass().getResource("/icons/add.gif"));
 		btnAdd.setIcon(addIcon);
 		ImageIcon editIcon = new ImageIcon(getClass().getResource("/icons/edit.gif"));
@@ -54,34 +54,31 @@ public class BibliotekariProzor extends JFrame{
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
 		
-		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa","Pol","Plata","Korisnicko ime","Lozinka"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
+		String[] zaglavlja = new String[] {"ID", "Cijena", "Tip Karte", "Datum posljednje uplate (dd-mm-gggg)", "Broj mjeseci"};
+		Object[][] sadrzaj = new Object[biblioteka.sveNeobrisaneClanarine().size()][zaglavlja.length];
 		
-		for(int i=0; i<biblioteka.sviNeobrisaniBibliotekari().size(); i++) {
-			Bibliotekar bibliotekar = biblioteka.sviNeobrisaniBibliotekari().get(i);
+		for(int i=0; i<biblioteka.sveNeobrisaneClanarine().size(); i++) {
+			ClanskaKarta clanarina = biblioteka.sveNeobrisaneClanarine().get(i);
 			
-			sadrzaj[i][0] = bibliotekar.getId();
-			sadrzaj[i][1] = bibliotekar.getIme();
-			sadrzaj[i][2] = bibliotekar.getPrezime();
-			sadrzaj[i][3] = bibliotekar.getJmbg();
-			sadrzaj[i][4] = bibliotekar.getAdresa();
-			sadrzaj[i][5] = bibliotekar.getPol();
-			sadrzaj[i][6] = bibliotekar.getPlata();
-			sadrzaj[i][7] = bibliotekar.getKorisnicko_ime();
-			sadrzaj[i][8] = bibliotekar.getLozinka();
+			sadrzaj[i][0] = clanarina.getId();
+			sadrzaj[i][1] = clanarina.getCijena();
+			sadrzaj[i][2] = clanarina.getTipkarte();
+			sadrzaj[i][3] = clanarina.getDatum_posljednje_uplate();
+			sadrzaj[i][4] = clanarina.getBroj_mjeseci();
+
 			
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		bibliotekariTabela = new JTable(tableModel);
+		clanarineTabela = new JTable(tableModel);
 		
-		bibliotekariTabela.setRowSelectionAllowed(true);
-		bibliotekariTabela.setColumnSelectionAllowed(false);
-		bibliotekariTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		bibliotekariTabela.setDefaultEditor(Object.class, null);
-		bibliotekariTabela.getTableHeader().setReorderingAllowed(false);
+		clanarineTabela.setRowSelectionAllowed(true);
+		clanarineTabela.setColumnSelectionAllowed(false);
+		clanarineTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		clanarineTabela.setDefaultEditor(Object.class, null);
+		clanarineTabela.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(bibliotekariTabela);
+		JScrollPane scrollPane = new JScrollPane(clanarineTabela);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 	
@@ -89,21 +86,21 @@ public class BibliotekariProzor extends JFrame{
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = bibliotekariTabela.getSelectedRow();
+				int red = clanarineTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
 					String id = tableModel.getValueAt(red, 0).toString();
-					Bibliotekar bibliotekar = biblioteka.nadjiBibliotekara(id);
+					ClanskaKarta clanarina = biblioteka.nadjiClanarinu(id);
 					
 					int izbor = JOptionPane.showConfirmDialog(null, 
-							"Da li ste sigurni da zelite da obrisete bibliotekara?", 
+							"Da li ste sigurni da zelite da obrisete clanarinu?", 
 							id + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_OPTION) {
-						bibliotekar.setObrisan(true);
+						clanarina.setObrisan(true);
 						tableModel.removeRow(red);
-						biblioteka.obrisiBibliotekara(bibliotekar);
-						biblioteka.snimiBibliotekare(ProjekatMain.bibliotekari_FAJL);
+						biblioteka.izbrisiClanarinu(clanarina);
+						biblioteka.snimiClanarine(ProjekatMain.clanarine_FAJL);
 					}
 				}
 			}
@@ -112,8 +109,8 @@ public class BibliotekariProzor extends JFrame{
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BibliotekariForma bf = new BibliotekariForma(biblioteka, null);
-				bf.setVisible(true);
+				ClanarineForma cf = new ClanarineForma(biblioteka, null);
+				cf.setVisible(true);
 			}
 		});
 		
@@ -121,21 +118,21 @@ public class BibliotekariProzor extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = bibliotekariTabela.getSelectedRow();
+				int red = clanarineTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String korisnickoIme = tableModel.getValueAt(red, 7).toString();
-					Bibliotekar bibliotekar = biblioteka.nadjiBibliotekara(korisnickoIme);
-					if(bibliotekar == null) {
+					String id = tableModel.getValueAt(red, 0).toString();
+					ClanskaKarta clanarina = biblioteka.nadjiClanarinu(id);
+					if(clanarina == null) {
 						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja administratora sa tim korisnickim imenom", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
-						BibliotekariForma bf = new BibliotekariForma(biblioteka, bibliotekar);
-						bf.setVisible(true);
+
+						ClanarineForma cf = new ClanarineForma(biblioteka, clanarina);
+						cf.setVisible(true);
 					}
 				}
 			}
 		});
 	}
-	
 }

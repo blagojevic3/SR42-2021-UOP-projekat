@@ -1,35 +1,44 @@
 package model;
-import java.time.LocalDate;
+
+
+import enumeracije.TipKarte;
 
 /**
  * 
  */
 public class ClanskaKarta {
 
-    protected int broj;
+    protected String id;
     protected double cijena;
-    protected String tipkarte;
-    protected LocalDate datum_posljednje_uplate;
+    protected TipKarte tipkarte;
+    protected String datum_posljednje_uplate;
     protected int broj_mjeseci;
     protected boolean obrisan;
     
     public ClanskaKarta() {
-    	this.broj = 0;
+    	this.id = "";
 		this.cijena = 0;
-		this.tipkarte = "";
+		this.tipkarte = TipKarte.penzioneri;
 		this.datum_posljednje_uplate = null;
 		this.broj_mjeseci = 0;
 		this.obrisan = false;
     }
     
-	public ClanskaKarta(int broj, double cijena, String tipkarte, LocalDate datum_posljednje_uplate, int broj_mjeseci, boolean obrisan) {
+	public ClanskaKarta(String id, double cijena, TipKarte tipkarte, String datum_posljednje_uplate, int broj_mjeseci, boolean obrisan) {
 		super();
-		this.broj = broj;
+		this.id = id;
 		this.cijena = cijena;
 		this.tipkarte = tipkarte;
 		this.datum_posljednje_uplate = datum_posljednje_uplate;
 		this.broj_mjeseci = broj_mjeseci;
 		this.obrisan = obrisan;
+	}
+	public ClanskaKarta(String id, double cijena, TipKarte tipkarte, String datum_posljednje_uplate, int broj_mjeseci) {
+		this.id = id;
+		this.cijena = cijena;
+		this.tipkarte = tipkarte;
+		this.datum_posljednje_uplate = datum_posljednje_uplate;
+		this.broj_mjeseci = broj_mjeseci;
 	}
 
 	public boolean isObrisan() {
@@ -40,12 +49,12 @@ public class ClanskaKarta {
 		this.obrisan = obrisan;
 	}
 
-	public int getBroj() {
-		return broj;
+	public String getId() {
+		return id;
 	}
 
-	public void setBroj(int broj) {
-		this.broj = broj;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public double getCijena() {
@@ -56,19 +65,19 @@ public class ClanskaKarta {
 		this.cijena = cijena;
 	}
 
-	public String getTipkarte() {
+	public TipKarte getTipkarte() {
 		return tipkarte;
 	}
 
-	public void setTipkarte(String tipkarte) {
+	public void setTipkarte(TipKarte tipkarte) {
 		this.tipkarte = tipkarte;
 	}
 
-	public LocalDate getDatum_posljednje_uplate() {
+	public String getDatum_posljednje_uplate() {
 		return datum_posljednje_uplate;
 	}
 
-	public void setDatum_posljednje_uplate(LocalDate datum_posljednje_uplate) {
+	public void setDatum_posljednje_uplate(String datum_posljednje_uplate) {
 		this.datum_posljednje_uplate = datum_posljednje_uplate;
 	}
 
@@ -82,7 +91,7 @@ public class ClanskaKarta {
     
 	@Override
 	public String toString() {
-		return "\nBroj clanske karte: " + broj+
+		return "\nBroj clanske karte: " + id+
 				"\nCijena: " + cijena +
 				"\nTip clanarine:" + tipkarte +
 				"\nDatum posljednje uplate:" + datum_posljednje_uplate +
