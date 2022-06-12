@@ -13,6 +13,7 @@ public class PrimjerakKnjige {
     protected boolean iznajmljena;
 	protected String id; 
 	protected TipPoveza tip;
+	protected boolean obrisan; 
 	
 	public PrimjerakKnjige() {
 		
@@ -23,10 +24,11 @@ public class PrimjerakKnjige {
 		this.iznajmljena = false;
 		this.id = "";
 		this.tip = null;
+		this.obrisan = false;
 	}
 	
 	public PrimjerakKnjige(String id, Knjiga original, int broj_strana, int godina_stampanja, Jezik jezik_stampanja,
-			boolean iznajmljena, TipPoveza tip) {
+			boolean iznajmljena, TipPoveza tip, boolean obrisan) {
 		super();
 		this.original = original;
 		this.broj_strana = broj_strana;
@@ -35,6 +37,15 @@ public class PrimjerakKnjige {
 		this.iznajmljena = iznajmljena;
 		this.id = id;
 		this.tip = tip;
+		this.obrisan = obrisan;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 	public Knjiga getOriginal() {
@@ -100,7 +111,8 @@ public class PrimjerakKnjige {
 				"\nTip poveza:" + tip +
 				"\nGodina stampanja:" + godina_stampanja +
 				"\nJezik stampanja: " + jezik_stampanja +
-				"\nIznajmljena:" + iznajmljena;
+				"\nIznajmljena:" + iznajmljena+
+				"\nObrisan:" + obrisan;
 						  
 	}
 	

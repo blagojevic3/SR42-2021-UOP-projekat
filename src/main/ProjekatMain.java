@@ -4,6 +4,8 @@ import model.Administrator;
 import model.Biblioteka;
 import model.Bibliotekar;
 import model.Clan;
+import model.ClanskaKarta;
+import model.Iznajmljivanje;
 import model.Knjiga;
 import model.PrimjerakKnjige;
 import model.Zanr;
@@ -11,15 +13,19 @@ import enumeracije.Jezik;
 import enumeracije.Pol;
 import enumeracije.TipPoveza;
 import gui.GlavniProzor;
+import gui.LoginProzor;
 
 public class ProjekatMain {
 	
-	private static String administratori_FAJL = "administratori.txt";
-	private static String bibliotekari_FAJL = "bibliotekari.txt";
-	private static String clanovi_FAJL = "clanovi.txt";
-	private static String knjige_FAJL = "knjige.txt";
-	private static String primjerci_FAJL = "primjerci.txt";
-	private static String zanrovi_FAJL = "zanrovi.txt";
+	public static String administratori_FAJL = "administratori.txt";
+	public static String bibliotekari_FAJL = "bibliotekari.txt";
+	public static String clanovi_FAJL = "clanovi.txt";
+	public static String knjige_FAJL = "knjige.txt";
+	public static String primjerci_FAJL = "primjerci.txt";
+	public static String zanrovi_FAJL = "zanrovi.txt";
+	public static String clanarine_FAJL = "clanarine.txt";
+	public static String iznajmljivanja_FAJL = "iznajmljivanja.txt";
+	
 	
 
 	public static void main(String[] args) {
@@ -31,47 +37,12 @@ public class ProjekatMain {
 		biblioteka.ucitajKnjige(knjige_FAJL);
 		biblioteka.ucitajPrimjerke(primjerci_FAJL);
 		biblioteka.ucitajZanrove(zanrovi_FAJL);
+		biblioteka.ucitajClanarine(clanarine_FAJL);
+		biblioteka.ucitajIznajmljivanje(iznajmljivanja_FAJL);
 		
-		System.out.println("PODACI UCITANI IZ DATOTEKA:");
-		System.out.println("----------------------------------------------");
-		ispisiSvePodatke(biblioteka);
-		System.out.println("----------------------------------------------");
-		
-		System.out.println("Primjeri...");
-		Pol m = Pol.muski;
-		Jezik eng = Jezik.engleski;
-		TipPoveza t = TipPoveza.tvrd;
+		LoginProzor lp = new LoginProzor(biblioteka);
+		lp.setVisible(true);
 
-		
-		Administrator administrator1 = new Administrator("001","Marko","Markovic","1002003004001","Adresa1",m, "3000rsd","marko123","123");
-		biblioteka.dodajAdministratora(administrator1);
-		
-		Bibliotekar bibliotekar1 = new Bibliotekar("002","Petar","Petrovic","1002003004002","Adresa2",m, "30000rsd","petar123","1234");
-		biblioteka.dodajBibliotekara(bibliotekar1);
-		
-		Clan clan1 = new Clan("003","Jelena","Markovic","1002003004003","Adresa3", true);
-		biblioteka.dodajClana(clan1);
-		
-		Knjiga knjiga1 = new Knjiga("004","Knjiga1","OriginalnaKnjiga1",2020,"Ovo je opis knjige","Jovan", "Jovanovic");
-		biblioteka.dodajKnjigu(knjiga1);
-		
-		PrimjerakKnjige primjerak1 = new PrimjerakKnjige("005",knjiga1,365,2021,eng,true,t);
-		biblioteka.dodajPrimjerak(primjerak1);
-		
-		Zanr zanr1 = new Zanr("oznaka1","Ovo je opis zanra");
-		biblioteka.dodajZanr(zanr1);
-		
-		
-		System.out.println("Snimanje dodanih podataka...");
-		biblioteka.snimiAdministratore(administratori_FAJL);
-		biblioteka.snimiBibliotekare(bibliotekari_FAJL);
-		biblioteka.snimiClanove(clanovi_FAJL);
-		biblioteka.snimiKnjige(knjige_FAJL);
-		biblioteka.snimiPrimjerke(primjerci_FAJL);
-		biblioteka.snimiZanrove(zanrovi_FAJL);
-			
-		GlavniProzor gp = new GlavniProzor();
-		gp.setVisible(true);
 	}
 	
 	public static void ispisiSvePodatke(Biblioteka biblioteka) {
@@ -93,6 +64,12 @@ public class ProjekatMain {
 		}
 		for(Zanr zanr : biblioteka.getZanrovi()) {
 			System.out.println(zanr + "\n");
+		}
+		for(Iznajmljivanje iznajmljivanje: biblioteka.getIznajmljivanja()) {
+			System.out.println(iznajmljivanje+"\n");
+		}
+		for(ClanskaKarta clanarina: biblioteka.getClanarine()) {
+			System.out.println(clanarina+"\n");
 		}
 	}
 	

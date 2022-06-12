@@ -13,6 +13,7 @@ public class Zaposleni {
     protected String korisnicko_ime;
     protected String lozinka;
     protected String id;
+    protected boolean obrisan;
     
     public Zaposleni() {
     	this.ime = "";
@@ -24,10 +25,11 @@ public class Zaposleni {
 		this.korisnicko_ime = "";
 		this.lozinka = "";
 		this.id ="";
+		this.obrisan = false;
     }
     
     public Zaposleni(String id,String ime, String prezime, String jmbg, String adresa, Pol pol, String plata,
-			String korisnicko_ime, String lozinka) {
+			String korisnicko_ime, String lozinka, boolean obrisan) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -38,6 +40,15 @@ public class Zaposleni {
 		this.korisnicko_ime = korisnicko_ime;
 		this.lozinka = lozinka;
 		this.id = id;
+		this.obrisan = obrisan;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 	public String getIme() {
@@ -105,7 +116,8 @@ public class Zaposleni {
 						  "\nPol:" + pol +
 						  "\nPlata" + plata +
 						  "\nKorisnicko Ime:" + korisnicko_ime+
-						  "\nLozinka: " + lozinka; 
+						  "\nLozinka: " + lozinka +
+						  "\nObrisan: " + obrisan;
 						  
 						  
 	}

@@ -1,9 +1,3 @@
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
-001|Marko|Markovic|1002003004001|Adresa1|muski|3000rsd|marko123|123
+123|Marko|Jovanovic|1231231231231|adresa1|muski|260.0|markoj|12345|false
+12341|velibor|blagojevic|1231233210123|aaa|muski||veliborb|1234|false
+141|petar|petrovic|1233210000111|adresaadresa|muski|260rsd|petarp|lozinka|false

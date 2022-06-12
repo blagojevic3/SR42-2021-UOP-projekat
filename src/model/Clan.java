@@ -11,6 +11,7 @@ public class Clan {
     protected String adresa;
     protected boolean aktivan;
     protected String id;
+    protected boolean obrisan;
     //protected ClanskaKarta kartica;
     
     public Clan() {
@@ -20,10 +21,11 @@ public class Clan {
 		this.adresa = "";
 		this.aktivan = false;
 		this.id = "";
+		this.obrisan = false;
 		//this.kartica = null;
     }
     
-	public Clan(String id, String ime, String prezime, String jmbg, String adresa, boolean aktivan) {
+	public Clan(String id, String ime, String prezime, String jmbg, String adresa, boolean aktivan, boolean obrisan) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -31,7 +33,16 @@ public class Clan {
 		this.adresa = adresa;
 		this.aktivan = aktivan;
 		this.id = id;
+		this.obrisan = obrisan;
 		//this.kartica = kartica;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 	public String getIme() {
@@ -100,7 +111,8 @@ public class Clan {
 						  "\nPrezime:" + prezime +
 						  "\nJMBG:" + jmbg +
 						  "\nAdresa" + adresa +
-						  "\nAktivan"+ aktivan;
+						  "\nAktivan"+ aktivan+
+						  "\nObrisan:"+ obrisan;
 //						  "\nClanska karta: " + kartica.toString();
 						  
 						  

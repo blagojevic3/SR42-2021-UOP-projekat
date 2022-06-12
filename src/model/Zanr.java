@@ -8,20 +8,31 @@ public class Zanr {
 
     protected String oznaka;
     protected String opis;
+    protected boolean obrisan;
     
     public Zanr() {
     	this.oznaka = "";
 		this.opis = "";
+		this.obrisan = false;
     }
     
-	public Zanr(String oznaka, String opis) {
+	public Zanr(String oznaka, String opis, boolean obrisan) {
 		super();
 		this.oznaka = oznaka;
 		this.opis = opis;
+		this.obrisan = obrisan;
 	}
 
 	public String getOznaka() {
 		return oznaka;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 	public void setOznaka(String oznaka) {
@@ -39,7 +50,8 @@ public class Zanr {
 	@Override
 	public String toString() {
 		return "/nOznaka: " + oznaka+
-				"\nIme: " + opis;
+				"\nIme: " + opis+
+				"\nObrisan:"+ obrisan;
 
 						  
 						  

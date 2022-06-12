@@ -1,11 +1,16 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import model.Biblioteka;
+import model.Zaposleni;
 
 public class GlavniProzor extends JFrame{
 	
@@ -13,7 +18,7 @@ public class GlavniProzor extends JFrame{
 	private JMenu zaposleniMenu = new JMenu("Zaposleni");
 	private JMenu knjigeMenu = new JMenu("Knjige");
 	private JMenu clanoviMenu = new JMenu("Clanovi");
-	private JMenuItem administatoriItem = new JMenuItem("Administratori");
+	private JMenuItem administratoriItem = new JMenuItem("Administratori");
 	private JMenuItem bibliotekariItem = new JMenuItem("Bibliotekari");
 	private JMenuItem clanoviItem = new JMenuItem("Clanovi");
 	private JMenuItem tipoviClanarineItem = new JMenuItem("Tipovi clanarine");
@@ -23,17 +28,21 @@ public class GlavniProzor extends JFrame{
 	private JMenuItem iznajmljivanjaItem = new JMenuItem("Iznajmljivanja");
 	
 	private Biblioteka biblioteka;
+	private Zaposleni prijavljeniKorisnik;
 	
 	
-	public GlavniProzor() {
+	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik ) {
 		
 		this.biblioteka = biblioteka;
+		this.prijavljeniKorisnik = prijavljeniKorisnik;
 		setTitle("Glavni Prozor");
 		setSize(800, 600);
+		getContentPane().setBackground(Color.CYAN);
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initMenu();
+		initActions();
 
 
 	}
@@ -43,7 +52,7 @@ public class GlavniProzor extends JFrame{
 		glavniMeni.add(zaposleniMenu);
 		glavniMeni.add(clanoviMenu);
 		glavniMeni.add(knjigeMenu);
-		zaposleniMenu.add(administatoriItem);
+		zaposleniMenu.add(administratoriItem);
 		zaposleniMenu.add(bibliotekariItem);
 		clanoviMenu.add(clanoviItem);
 		clanoviMenu.add(tipoviClanarineItem);
@@ -53,12 +62,29 @@ public class GlavniProzor extends JFrame{
 		knjigeMenu.add(iznajmljivanjaItem);
 		
 		
-
-		
-		
-				
+			
 	}
 	
+	private void initActions() {
+		
+		administratoriItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdministratoriProzor ap = new AdministratoriProzor(biblioteka);
+				ap.setVisible(true);
+			}
+		});
+		
+		bibliotekariItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekariProzor bp = new BibliotekariProzor(biblioteka);
+				bp.setVisible(true);
+			}
+		});
+		
+
+	}
 	
 	
 	

@@ -11,6 +11,7 @@ public class ClanskaKarta {
     protected String tipkarte;
     protected LocalDate datum_posljednje_uplate;
     protected int broj_mjeseci;
+    protected boolean obrisan;
     
     public ClanskaKarta() {
     	this.broj = 0;
@@ -18,15 +19,25 @@ public class ClanskaKarta {
 		this.tipkarte = "";
 		this.datum_posljednje_uplate = null;
 		this.broj_mjeseci = 0;
+		this.obrisan = false;
     }
     
-	public ClanskaKarta(int broj, double cijena, String tipkarte, LocalDate datum_posljednje_uplate, int broj_mjeseci) {
+	public ClanskaKarta(int broj, double cijena, String tipkarte, LocalDate datum_posljednje_uplate, int broj_mjeseci, boolean obrisan) {
 		super();
 		this.broj = broj;
 		this.cijena = cijena;
 		this.tipkarte = tipkarte;
 		this.datum_posljednje_uplate = datum_posljednje_uplate;
 		this.broj_mjeseci = broj_mjeseci;
+		this.obrisan = obrisan;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 	public int getBroj() {
@@ -75,7 +86,8 @@ public class ClanskaKarta {
 				"\nCijena: " + cijena +
 				"\nTip clanarine:" + tipkarte +
 				"\nDatum posljednje uplate:" + datum_posljednje_uplate +
-				"\nBroj mjeseci: " + broj_mjeseci;
+				"\nBroj mjeseci: " + broj_mjeseci+
+				"\nObrisan:"+ obrisan;
 						  				  
 	}
     

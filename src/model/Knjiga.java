@@ -13,6 +13,7 @@ public class Knjiga {
     protected String ime_pisca;
     protected String prezime_pisca;
     protected String id;
+    protected boolean obrisan;
     
     public Knjiga() {
     	this.naslov = "";
@@ -22,10 +23,11 @@ public class Knjiga {
 		this.ime_pisca = "";
 		this.prezime_pisca = "";
 		this.id = "";
+		this.obrisan = false;
     }
     
 	public Knjiga(String id, String naslov, String originalni_naslov, int godina_objave, String opis_knjige, String ime_pisca,
-			String prezime_pisca) {
+			String prezime_pisca, boolean obrisan) {
 		super();
 		this.naslov = naslov;
 		this.originalni_naslov = originalni_naslov;
@@ -34,6 +36,15 @@ public class Knjiga {
 		this.ime_pisca = ime_pisca;
 		this.prezime_pisca = prezime_pisca;
 		this.id = id;
+		this.obrisan = obrisan;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 	public String getNaslov() {
@@ -99,7 +110,9 @@ public class Knjiga {
 						  "\nGodina objave:" + godina_objave +
 						  "\nOpis knjige:" + opis_knjige +
 						  "\nIme pisca" + ime_pisca +
-						  "\nPrezime pisca" + prezime_pisca; 
+						  "\nPrezime pisca" + prezime_pisca+
+						  "\nObrisan: " + obrisan;
+		
 						  
 						  
 	}
