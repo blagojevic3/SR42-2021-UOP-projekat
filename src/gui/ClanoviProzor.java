@@ -127,7 +127,7 @@ public class ClanoviProzor extends JFrame {
 					String id = tableModel.getValueAt(red, 0).toString();
 					Clan clan = biblioteka.nadjiClana(id);
 					if(clan == null) {
-						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja administratora sa tim korisnickim imenom", "Greska", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja clana sa tim ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
 
 						ClanoviForma cf = new ClanoviForma(biblioteka, clan);

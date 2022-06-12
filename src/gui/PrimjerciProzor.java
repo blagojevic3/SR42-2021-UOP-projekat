@@ -14,12 +14,13 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import gui.formeAddEdit.ClanarineForma;
+import gui.formeAddEdit.PrimjerciForma;
 import main.ProjekatMain;
-import model.Biblioteka;
-import model.ClanskaKarta;
 
-public class ClanarineProzor extends JFrame {
+import model.Biblioteka;
+import model.PrimjerakKnjige;
+
+public class PrimjerciProzor extends JFrame {
 	
 	private JToolBar mainToolbar = new JToolBar();
 	private JButton btnAdd = new JButton();
@@ -27,12 +28,13 @@ public class ClanarineProzor extends JFrame {
 	private JButton btnDelete = new JButton();
 	
 	private DefaultTableModel tableModel;
-	private JTable clanarineTabela;	
+	private JTable primjerciTabela;	
 	private Biblioteka biblioteka;
 	
-	public ClanarineProzor(Biblioteka biblioteka) {
+	public PrimjerciProzor(Biblioteka biblioteka) {
+		
 		this.biblioteka = biblioteka;
-		setTitle("Clanarine");
+		setTitle("Primjerci knjiga");
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -54,31 +56,32 @@ public class ClanarineProzor extends JFrame {
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
 		
-		String[] zaglavlja = new String[] {"ID", "Cijena", "Tip Karte", "Datum posljednje uplate (dd-mm-gggg)", "Broj mjeseci"};
-		Object[][] sadrzaj = new Object[biblioteka.sveNeobrisaneClanarine().size()][zaglavlja.length];
+		String[] zaglavlja = new String[] {"ID", "Original", "Broj strana", "Godina stampanja", "Jezik stampanja","Iznajmljena","Tip poveza"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimjerci().size()][zaglavlja.length];
 		
-		for(int i=0; i<biblioteka.sveNeobrisaneClanarine().size(); i++) {
-			ClanskaKarta clanarina = biblioteka.sveNeobrisaneClanarine().get(i);
+		for(int i=0; i<biblioteka.sviNeobrisaniPrimjerci().size(); i++) {
+			PrimjerakKnjige primjerak = biblioteka.sviNeobrisaniPrimjerci().get(i);
 			
-			sadrzaj[i][0] = clanarina.getId();
-			sadrzaj[i][1] = clanarina.getCijena();
-			sadrzaj[i][2] = clanarina.getTipkarte();
-			sadrzaj[i][3] = clanarina.getDatum_posljednje_uplate();
-			sadrzaj[i][4] = clanarina.getBroj_mjeseci();
+			sadrzaj[i][0] = primjerak.getOriginal();
+			sadrzaj[i][1] = primjerak.getBroj_strana();
+			sadrzaj[i][2] = primjerak.getGodina_stampanja();
+			sadrzaj[i][3] = primjerak.getJezik_stampanja();
+			sadrzaj[i][4] = primjerak.isIznajmljena();
+			sadrzaj[i][5] = primjerak.getTip();
 
 			
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		clanarineTabela = new JTable(tableModel);
+		primjerciTabela = new JTable(tableModel);
 		
-		clanarineTabela.setRowSelectionAllowed(true);
-		clanarineTabela.setColumnSelectionAllowed(false);
-		clanarineTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		clanarineTabela.setDefaultEditor(Object.class, null);
-		clanarineTabela.getTableHeader().setReorderingAllowed(false);
+		primjerciTabela.setRowSelectionAllowed(true);
+		primjerciTabela.setColumnSelectionAllowed(false);
+		primjerciTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		primjerciTabela.setDefaultEditor(Object.class, null);
+		primjerciTabela.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(clanarineTabela);
+		JScrollPane scrollPane = new JScrollPane(primjerciTabela);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 	
@@ -86,21 +89,22 @@ public class ClanarineProzor extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = clanarineTabela.getSelectedRow();
+				int red = primjerciTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
 					String id = tableModel.getValueAt(red, 0).toString();
-					ClanskaKarta clanarina = biblioteka.nadjiClanarinu(id);
+					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(id);
 					
 					int izbor = JOptionPane.showConfirmDialog(null, 
-							"Da li ste sigurni da zelite da obrisete clanarinu?", 
+							"Da li ste sigurni da zelite da obrisete primjerak?", 
 							id + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_OPTION) {
-						clanarina.setObrisan(true);
+						primjerak.setObrisan(true);
 						tableModel.removeRow(red);
-						biblioteka.izbrisiClanarinu(clanarina);
-						biblioteka.snimiClanarine(ProjekatMain.clanarine_FAJL);
+						biblioteka.izbrisiPrimjerak(primjerak);
+						biblioteka.snimiPrimjerke(ProjekatMain.primjerci_FAJL);
+
 					}
 				}
 			}
@@ -109,8 +113,8 @@ public class ClanarineProzor extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ClanarineForma cf = new ClanarineForma(biblioteka, null);
-				cf.setVisible(true);
+				PrimjerciForma pf = new PrimjerciForma(biblioteka, null);
+				pf.setVisible(true);
 			}
 		});
 		
@@ -118,21 +122,22 @@ public class ClanarineProzor extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = clanarineTabela.getSelectedRow();
+				int red = primjerciTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
 					String id = tableModel.getValueAt(red, 0).toString();
-					ClanskaKarta clanarina = biblioteka.nadjiClanarinu(id);
-					if(clanarina == null) {
-						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja clanarine sa tim ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
+					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(id);
+					if(primjerak == null) {
+						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja primjerka sa ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
 
-						ClanarineForma cf = new ClanarineForma(biblioteka, clanarina);
-						cf.setVisible(true);
+						PrimjerciForma pf = new PrimjerciForma(biblioteka, primjerak);
+						pf.setVisible(true);
 					}
 				}
 			}
 		});
 	}
+
 }

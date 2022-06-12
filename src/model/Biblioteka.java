@@ -190,6 +190,15 @@ public class Biblioteka {
     	}
     	return null;
     }
+    
+    public Knjiga nadjiKnjigu(PrimjerakKnjige p) {
+    	for(Knjiga knjiga:sveNeobrisaneKnjige()) {
+    		if (knjiga.get) {
+    			return knjiga;
+    		}
+    	}
+    	return null;
+    }
     public Knjiga nadjiKnjigu(String id) {
     	for(Knjiga knjiga:knjige) {
     		if (knjiga.getId().equals(id)) {

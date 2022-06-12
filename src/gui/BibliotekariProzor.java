@@ -125,10 +125,10 @@ public class BibliotekariProzor extends JFrame{
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String korisnickoIme = tableModel.getValueAt(red, 7).toString();
-					Bibliotekar bibliotekar = biblioteka.nadjiBibliotekara(korisnickoIme);
+					String id = tableModel.getValueAt(red, 0).toString();
+					Bibliotekar bibliotekar = biblioteka.nadjiBibliotekara(id);
 					if(bibliotekar == null) {
-						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja administratora sa tim korisnickim imenom", "Greska", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja administratora sa tim ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
 						BibliotekariForma bf = new BibliotekariForma(biblioteka, bibliotekar);
 						bf.setVisible(true);

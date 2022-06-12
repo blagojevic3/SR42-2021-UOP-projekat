@@ -39,6 +39,18 @@ public class PrimjerakKnjige {
 		this.tip = tip;
 		this.obrisan = obrisan;
 	}
+	public PrimjerakKnjige(String id, Knjiga original, int broj_strana, int godina_stampanja, Jezik jezik_stampanja,
+			boolean iznajmljena, TipPoveza tip) {
+		super();
+		this.original = original;
+		this.broj_strana = broj_strana;
+		this.godina_stampanja = godina_stampanja;
+		this.jezik_stampanja = jezik_stampanja;
+		this.iznajmljena = iznajmljena;
+		this.id = id;
+		this.tip = tip;
+
+	}
 
 	public boolean isObrisan() {
 		return obrisan;

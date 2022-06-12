@@ -99,6 +99,14 @@ public class GlavniProzor extends JFrame{
 			}
 		});
 		
+		originaliItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				KnjigeProzor originalp = new KnjigeProzor(biblioteka);
+				originalp.setVisible(true);
+			}
+		});
+		
 
 	}
 	

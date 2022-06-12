@@ -38,6 +38,17 @@ public class Knjiga {
 		this.id = id;
 		this.obrisan = obrisan;
 	}
+	public Knjiga(String id, String naslov, String originalni_naslov, int godina_objave, String opis_knjige, String ime_pisca,
+			String prezime_pisca) {
+		super();
+		this.naslov = naslov;
+		this.originalni_naslov = originalni_naslov;
+		this.godina_objave = godina_objave;
+		this.opis_knjige = opis_knjige;
+		this.ime_pisca = ime_pisca;
+		this.prezime_pisca = prezime_pisca;
+		this.id = id;
+	}
 
 	public boolean isObrisan() {
 		return obrisan;
