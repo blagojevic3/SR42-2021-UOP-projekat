@@ -55,14 +55,15 @@ public class ZanroviProzor extends JFrame{
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
 		
-		String[] zaglavlja = new String[] {"Oznaka", "Opis"};
+		String[] zaglavlja = new String[] {"Oznaka", "Naziv", "Opis"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniZanrovi().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniZanrovi().size(); i++) {
 			Zanr zanr = biblioteka.sviNeobrisaniZanrovi().get(i);
 			
 			sadrzaj[i][0] = zanr.getOznaka();
-			sadrzaj[i][1] = zanr.getOpis();
+			sadrzaj[i][1] = zanr.getNaziv();
+			sadrzaj[i][2] = zanr.getOpis();
 
 
 			

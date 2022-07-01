@@ -4,13 +4,18 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import model.Biblioteka;
+import model.BibliotekaEntitet;
 import model.Zaposleni;
+import net.miginfocom.swing.MigLayout;
 
 public class GlavniProzor extends JFrame{
 	
@@ -27,27 +32,50 @@ public class GlavniProzor extends JFrame{
 	private JMenuItem zanroviItem = new JMenuItem("Zanrovi");
 	private JMenuItem iznajmljivanjaItem = new JMenuItem("Iznajmljivanja");
 	
+	private JLabel lblnaziv = new JLabel();
+	private JLabel lbladresa = new JLabel();
+	private JLabel lbltelefon = new JLabel();
+	private JLabel lblpocetakRadnog = new JLabel();
+	private JLabel lblkrajRadnog = new JLabel();
+	private JButton btnEdit = new JButton();
+	
+	
+	private JLabel lblGreet = new JLabel("Dobrodosli!");
+	
+	
+	
 	private Biblioteka biblioteka;
 	private Zaposleni prijavljeniKorisnik;
-	
+	private BibliotekaEntitet bibliotekaInfo = new BibliotekaEntitet();
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik ) {
 		
 		this.biblioteka = biblioteka;
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
-		setTitle("Glavni Prozor");
+		setTitle("Glavni Prozor: "+ prijavljeniKorisnik.getKorisnicko_ime());
 		setSize(800, 600);
-		getContentPane().setBackground(Color.CYAN);
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		bibliotekaInfo = bibliotekaInfo.ucitajBiblioteku("biblioteka.txt");
+		ucitavanje();
 		initMenu();
 		initActions();
 
 
 	}
+	public void ucitavanje() {
+		
+		lblnaziv.setText("Naziv: " + bibliotekaInfo.getNaziv());
+		lbladresa.setText("Adresa: " + bibliotekaInfo.getAdresa());
+		lbltelefon.setText("Telefon: " + bibliotekaInfo.getBrtelefona());
+		lblpocetakRadnog.setText("Pocetak radnog vremena: " + bibliotekaInfo.getPocetakRadnog());
+		lblkrajRadnog.setText("Kraj radnog vremena: " + bibliotekaInfo.getKrajRadnog());
+	}
 	
 	private void initMenu() {
+		MigLayout layout = new MigLayout("wrap 1");
+		setLayout(layout);
 		setJMenuBar(glavniMeni);
 		glavniMeni.add(zaposleniMenu);
 		glavniMeni.add(clanoviMenu);
@@ -60,6 +88,14 @@ public class GlavniProzor extends JFrame{
 		knjigeMenu.add(primjerciItem);
 		knjigeMenu.add(zanroviItem);
 		knjigeMenu.add(iznajmljivanjaItem);
+		add(lblGreet);
+		add(lblnaziv);
+		add(lbladresa);
+		add(lbltelefon);
+		add(lblpocetakRadnog);
+		add(lblkrajRadnog);
+		ImageIcon editIcon = new ImageIcon(getClass().getResource("/icons/edit.gif"));
+		btnEdit.setIcon(editIcon);
 		
 		
 			

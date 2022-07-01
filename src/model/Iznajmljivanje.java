@@ -17,11 +17,11 @@ public class Iznajmljivanje {
     public Iznajmljivanje() {
     	
     	this.id = "";
-    	this.datum_iznajmljivanja = null;
-		this.datum_vracanja = null;
-		this.zaposleni = null;
-		this.clan = null;
-		this.primjerak = null;
+    	this.datum_iznajmljivanja = "";
+		this.datum_vracanja = "";
+		this.zaposleni = new Zaposleni();
+		this.clan = new Clan();
+		this.primjerak = new PrimjerakKnjige();
 		this.obrisan = false;
     	
     }

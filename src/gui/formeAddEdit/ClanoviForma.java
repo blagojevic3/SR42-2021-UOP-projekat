@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
 
 import main.ProjekatMain;
 import model.Clan;
+import model.Administrator;
 import model.Biblioteka;
 import net.miginfocom.swing.MigLayout;
 
@@ -33,8 +35,8 @@ public class ClanoviForma extends JFrame{
 	
 	
 	private JLabel lblAktivan = new JLabel("Aktivan");
-	private JComboBox<Boolean> cbAktivan = new JComboBox<>();
-	private Vector<Boolean> cbAktivanItems;
+	private JCheckBox cbAktivan = new JCheckBox();
+
 	
 	
 	private JButton btnOk = new JButton("OK");
@@ -47,9 +49,7 @@ public class ClanoviForma extends JFrame{
 		
 		this.biblioteka = biblioteka;
 		this.clan = clan;
-		cbAktivanItems = new Vector<Boolean>();
-		cbAktivanItems.add(Boolean.TRUE);
-		cbAktivanItems.add(Boolean.FALSE);
+
 		
 		if(clan == null) {
 			setTitle("Dodavanje Clana");
@@ -101,7 +101,7 @@ public class ClanoviForma extends JFrame{
 					String prezime = txtPrezime.getText().trim();
 					String jmbg = txtJmbg.getText().trim();
 					String adresa = txtAdresa.getText().trim();
-					Boolean aktivan = (Boolean)cbAktivan.getSelectedItem();
+					boolean aktivan = cbAktivan.isSelected();
 
 					
 					if(clan == null) { // DODAVANJE:
@@ -132,19 +132,27 @@ public class ClanoviForma extends JFrame{
 		txtPrezime.setText(clan.getPrezime());
 		txtJmbg.setText(clan.getJmbg());
 		txtAdresa.setText(clan.getJmbg());
-		cbAktivan.setSelectedItem(cbAktivan.getSelectedItem());
+		cbAktivan.setSelected(cbAktivan.isSelected());
 
 
 	}
 	
 	private boolean validacija() {
 		boolean ok = true;
-		String poruka = "Molimo popravite sledece greske u unosu:\n";
+		String poruka = "Popravite sljedece greske u unosu:\n";
 		
 		
 		if(txtId.getText().trim().equals("")) {
 			poruka += "- Unesite ID\n";
 			ok = false;
+		}
+		else if(clan ==null) {
+			String id = txtId.getText().trim();
+			Clan pronadjeni = biblioteka.nadjiClana(id);
+			if(pronadjeni != null) {
+				poruka += "-Clan sa unijetim ID vec postoji\n.";
+				ok = false;
+			}
 		}
 		if(txtIme.getText().trim().equals("")) {
 			poruka += "- Unesite ime\n";
@@ -160,6 +168,10 @@ public class ClanoviForma extends JFrame{
 		}
 		if(txtAdresa.getText().trim().equals("")) {
 			poruka += "- Unesite adresu\n";
+			ok = false;
+		}
+		if(txtJmbg.getText().trim().length() != 13) {
+			poruka +="-JMBG nije validan, mora imati tacno 13 znakova.";
 			ok = false;
 		}
 

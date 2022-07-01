@@ -1,0 +1,1 @@
+idid|aaa|ssss|1234567891234|adresa|true|false

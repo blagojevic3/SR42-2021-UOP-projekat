@@ -15,6 +15,7 @@ import enumeracije.Pol;
 import main.ProjekatMain;
 import model.Administrator;
 import model.Biblioteka;
+import model.ClanskaKarta;
 //import net.miginfocom.swing.MigLayout;
 import net.miginfocom.swing.MigLayout;
 
@@ -155,6 +156,14 @@ public class AdministratoriForma extends JFrame {
 			poruka += "- Unesite ID\n";
 			ok = false;
 		}
+		else if(administrator ==null) {
+			String id = txtId.getText().trim();
+			Administrator pronadjeni = biblioteka.nadjiAdministratora(id);
+			if(pronadjeni != null) {
+				poruka += "-Administrator sa unijetim ID vec postoji\n.";
+				ok = false;
+			}
+		}
 		if(txtIme.getText().trim().equals("")) {
 			poruka += "- Unesite ime\n";
 			ok = false;
@@ -165,6 +174,10 @@ public class AdministratoriForma extends JFrame {
 		}
 		if(txtJmbg.getText().trim().equals("")) {
 			poruka += "- Unesite JMBG\n";
+			ok = false;
+		}
+		if(txtJmbg.getText().trim().length() != 13) {
+			poruka +="-JMBG nije validan, mora imati tacno 13 znakova.";
 			ok = false;
 		}
 		if(txtAdresa.getText().trim().equals("")) {

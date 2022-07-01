@@ -62,11 +62,14 @@ public class PrimjerciProzor extends JFrame {
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimjerci().size(); i++) {
 			PrimjerakKnjige primjerak = biblioteka.sviNeobrisaniPrimjerci().get(i);
 			
-			sadrzaj[i][0] = primjerak.getOriginal();
-			sadrzaj[i][1] = primjerak.getBroj_strana();
-			sadrzaj[i][2] = primjerak.getGodina_stampanja();
-			sadrzaj[i][3] = primjerak.getJezik_stampanja();
-			sadrzaj[i][4] = primjerak.getTip();
+			
+			sadrzaj[i][0] = primjerak.getId();
+			sadrzaj[i][1] = primjerak.getOriginal().getId();
+			sadrzaj[i][2] = primjerak.getBroj_strana();
+			sadrzaj[i][3] = primjerak.getGodina_stampanja();
+			sadrzaj[i][4] = primjerak.getJezik_stampanja();
+			sadrzaj[i][5] = primjerak.getTip();
+
 
 			
 		}

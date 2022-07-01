@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import main.ProjekatMain;
+import model.Administrator;
 import model.Biblioteka;
 import model.Knjiga;
 import model.Zanr;
@@ -19,6 +20,8 @@ public class ZanroviForma extends JFrame{
 	
 	private JLabel lblOznaka = new JLabel("Oznaka:");
 	private JTextField txtOznaka = new JTextField(20);
+	private JLabel lblNaziv = new JLabel("Naziv");
+	private JTextField txtNaziv = new JTextField(20);
 	private JLabel lblOpis = new JLabel("Opis");
 	private JTextField txtOpis = new JTextField(20);
 
@@ -56,6 +59,8 @@ public class ZanroviForma extends JFrame{
 		
 		add(lblOznaka);
 		add(txtOznaka);
+		add(lblNaziv);
+		add(txtNaziv);
 		add(lblOpis);
 		add(txtOpis);
 
@@ -72,16 +77,18 @@ public class ZanroviForma extends JFrame{
 				if(validacija()) {
 					
 					String oznaka = txtOznaka.getText().trim();
+					String naziv = txtNaziv.getText().trim();
 					String opis = txtOpis.getText().trim();
 
 
 					
 					if(zanr == null) { // DODAVANJE:
-						Zanr novi = new Zanr(oznaka, opis);
+						Zanr novi = new Zanr(oznaka, naziv, opis);
 						biblioteka.dodajZanr(novi);
 					}else { // IZMJENA:
 						
 						zanr.setOznaka(oznaka);
+						zanr.setNaziv(naziv);
 						zanr.setOpis(opis);
 
 						
@@ -97,6 +104,7 @@ public class ZanroviForma extends JFrame{
 	private void popuniPolja() {
 		
 		txtOznaka.setText(zanr.getOznaka());
+		txtNaziv.setText(zanr.getNaziv());
 		txtOpis.setText(zanr.getOpis());
 		
 
@@ -112,9 +120,29 @@ public class ZanroviForma extends JFrame{
 			poruka += "- Unesite oznaku\n";
 			ok = false;
 		}
+		else if(zanr ==null) {
+			String oznaka = txtOznaka.getText().trim();
+			Zanr pronadjeni = biblioteka.nadjiZanr(oznaka);
+			if(pronadjeni != null) {
+				poruka += "-Zanr sa unijetom oznakom vec postoji\n.";
+				ok = false;
+			}
+		}
 		if(txtOpis.getText().trim().equals("")) {
 			poruka += "- Unesite opis\n";
 			ok = false;
+		}
+		if(txtNaziv.getText().trim().equals("")) {
+			poruka += "- Unesite naziv\n";
+			ok = false;
+		}
+		else if(zanr == null){
+			String naziv = txtNaziv.getText().trim();
+			Zanr pronadjeni = biblioteka.nadjiZanr(naziv);
+			if(pronadjeni != null) {
+				poruka += "- Zanr sa tim nazivom vec postoji\n";
+				ok = false;
+			}
 		}
 		
 		

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import enumeracije.Pol;
 import main.ProjekatMain;
+import model.Administrator;
 import model.Biblioteka;
 import model.Bibliotekar;
 import net.miginfocom.swing.MigLayout;
@@ -153,6 +154,14 @@ public class BibliotekariForma extends JFrame {
 			poruka += "- Unesite ID\n";
 			ok = false;
 		}
+		else if(bibliotekar ==null) {
+			String id = txtId.getText().trim();
+			Bibliotekar pronadjeni = biblioteka.nadjiBibliotekara(id);
+			if(pronadjeni != null) {
+				poruka += "-Bibliotekar sa unijetim ID vec postoji\n.";
+				ok = false;
+			}
+		}
 		if(txtIme.getText().trim().equals("")) {
 			poruka += "- Unesite ime\n";
 			ok = false;
@@ -163,6 +172,10 @@ public class BibliotekariForma extends JFrame {
 		}
 		if(txtJmbg.getText().trim().equals("")) {
 			poruka += "- Unesite JMBG\n";
+			ok = false;
+		}
+		if(txtJmbg.getText().trim().length() != 13) {
+			poruka +="-JMBG nije validan, mora imati tacno 13 znakova.";
 			ok = false;
 		}
 		if(txtAdresa.getText().trim().equals("")) {

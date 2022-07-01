@@ -14,7 +14,6 @@ public class PrimjerakKnjige {
 	protected String id; 
 	protected TipPoveza tip;
 	protected boolean obrisan; 
-	
 	public PrimjerakKnjige() {
 		
 		this.original = new Knjiga();
@@ -52,6 +51,7 @@ public class PrimjerakKnjige {
 
 	}
 
+	
 	public boolean isObrisan() {
 		return obrisan;
 	}

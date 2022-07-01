@@ -108,7 +108,7 @@ public class PrimjerciForma extends JFrame {
 				if(validacija()) {
 					
 					String id = txtId.getText().trim();
-					String knjigaId = ((Knjiga)cbKnjiga.getSelectedItem()).getId();
+					String knjigaId = cbKnjiga.getSelectedItem().toString();
 					Knjiga knjiga = biblioteka.nadjiKnjigu(knjigaId);
 					int broj_strana = Integer.parseInt(txtBrojStr.getText().trim());
 					int godina_stampanja = Integer.parseInt(txtGodinaStampanja.getText().trim());
@@ -118,7 +118,7 @@ public class PrimjerciForma extends JFrame {
 
 					
 					if(primjerak == null) { // DODAVANJE:
-						PrimjerakKnjige novi = new PrimjerakKnjige(id, knjigaId, broj_strana, godina_stampanja, jezik, iznajmljena,tip);
+						PrimjerakKnjige novi = new PrimjerakKnjige(id, knjiga, broj_strana, godina_stampanja, jezik, iznajmljena,tip);
 						biblioteka.dodajPrimjerak(novi);
 
 					}else { // IZMJENA:
@@ -162,6 +162,14 @@ public class PrimjerciForma extends JFrame {
 		if(txtId.getText().trim().equals("")) {
 			poruka += "- Unesite ID\n";
 			ok = false;
+		}
+		else if(primjerak ==null) {
+			String id = txtId.getText().trim();
+			PrimjerakKnjige pronadjeni = biblioteka.nadjiPrimjerak(id);
+			if(pronadjeni != null) {
+				poruka += "-Primjerak knjige sa unijetim ID vec postoji\n.";
+				ok = false;
+			}
 		}
 		if(txtBrojStr.getText().trim().equals("")) {
 			poruka += "- Unesite broj strana\n";

@@ -325,7 +325,7 @@ public class Biblioteka {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (Zanr zanr : zanrovi) {
-				content += zanr.getOznaka() + "|" + zanr.getOpis() + "|" + zanr.isObrisan()+ "\n";
+				content += zanr.getOznaka() + "|" + zanr.getNaziv() +"|" + zanr.getOpis() + "|" + zanr.isObrisan()+ "\n";
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(content);
@@ -522,13 +522,14 @@ public class Biblioteka {
 			while ((line = reader.readLine()) != null) {
 				String[] split = line.split("\\|");
 				String oznaka = split[0];
-				String opis = split[1];
-				boolean obrisan = Boolean.parseBoolean(split[2]);
+				String naziv = split[1];
+				String opis = split[2];
+				boolean obrisan = Boolean.parseBoolean(split[3]);
 				
 				
 				
 				
-				Zanr zanr = new Zanr(oznaka, opis, obrisan);
+				Zanr zanr = new Zanr(oznaka, naziv, opis, obrisan);
 				zanrovi.add(zanr);
 			}
 			reader.close();

@@ -56,9 +56,9 @@ public class IznajmljivanjaProzor extends JFrame {
 		add(mainToolbar, BorderLayout.NORTH);
 		
 		String[] zaglavlja = new String[] {"ID", "Datum iznajmljivanja(dd-mm-gggg)", "Datum vracanja (dd-mm-gggg)", "Zaposleni", "Clan","Primjerak knjige"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimjerci().size()][zaglavlja.length];
+		Object[][] sadrzaj = new Object[biblioteka.svaNeobrisanaIznajmljivanja().size()][zaglavlja.length];
 		
-		for(int i=0; i<biblioteka.sviNeobrisaniPrimjerci().size(); i++) {
+		for(int i=0; i<biblioteka.svaNeobrisanaIznajmljivanja().size(); i++) {
 			Iznajmljivanje iznajmljivanje = biblioteka.svaNeobrisanaIznajmljivanja().get(i);
 			
 			sadrzaj[i][0] = iznajmljivanje.getId();

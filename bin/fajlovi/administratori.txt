@@ -1,3 +1,4 @@
 1234|petd|petrovicASasASa|1233210000111|1233210000111|muski|260rsd|petarp|lozinka|false
 sadasd|sadasd|sadasdsad|1313124214124|1313124214124|zenski|223|asdas|asdsa|true
-123|Marko|Jovanovic|1231231231231|adresa1|muski|260.0|markoj|12345|false
+123|aaa|aaaas|1233213123123|aaaas|muski|300.0|marko|marko123|false
+12345|marko|jankovic|3214123321555|adresaa|muski|400|markoj|12345|false

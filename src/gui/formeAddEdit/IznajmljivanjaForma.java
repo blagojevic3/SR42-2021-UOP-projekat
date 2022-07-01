@@ -28,15 +28,15 @@ public class IznajmljivanjaForma extends JFrame{
 	private JLabel lblId = new JLabel("ID:");
 	private JTextField txtId = new JTextField(20);
 	private JLabel lblDIznajmljivanja = new JLabel("Datum iznajmljivanja(dd-mm-gggg):");
-	private JTextField txtDIznajmljivanja = new JTextField();
+	private JTextField txtDIznajmljivanja = new JTextField(20);
 	private JLabel lblDVracanja = new JLabel("Datum vracanja(dd-mm-gggg):");
-	private JTextField txtDVracanja = new JTextField();
+	private JTextField txtDVracanja = new JTextField(20);
 	private JLabel lblZaposleni = new JLabel("Zaposleni: ");
 	private JComboBox<String> cbZaposleni = new JComboBox<String>();
 	private JLabel lblClan = new JLabel("Clan: ");
-	private JComboBox<Clan> cbClan = new JComboBox<Clan>();
+	private JComboBox<String> cbClan = new JComboBox<String>();
 	private JLabel lblPrimjerak = new JLabel("Primjerak: ");
-	private JComboBox<PrimjerakKnjige> cbPrimjerak = new JComboBox<PrimjerakKnjige>();
+	private JComboBox<String> cbPrimjerak = new JComboBox<String>();
 	private Biblioteka bibliotekari;
 	private Biblioteka clanovi;
 	private Biblioteka primjerci;
@@ -61,14 +61,14 @@ public class IznajmljivanjaForma extends JFrame{
 		this.clanovi = new Biblioteka();
 		this.clanovi.ucitajClanove("clanovi.txt");
 		for(Clan clan : clanovi.sviNeobrisaniClanovi()) {
-			cbClan.addItem(clan);
+			cbClan.addItem(clan.getId());
 		}
 		
 		this.primjerci = new Biblioteka();
 		this.primjerci.ucitajPrimjerke("primjerci.txt");
 		for(PrimjerakKnjige primjerak : primjerci.sviNeobrisaniPrimjerci()) {
 			if(primjerak.isIznajmljena() == false)
-				cbPrimjerak.addItem(primjerak);
+				cbPrimjerak.addItem(primjerak.getId());
 		}
 		if(iznajmljivanje == null) {
 			setTitle("Dodavanje Iznajmljivanja");
@@ -118,17 +118,17 @@ public class IznajmljivanjaForma extends JFrame{
 					String id = txtId.getText().trim();
 					String datumIznajmljivanja = txtDIznajmljivanja.getText().trim();
 					String datumVracanja = txtDVracanja.getText().trim();
-					String idZaposleni = ((Bibliotekar)cbZaposleni.getSelectedItem()).getId();
+					String idZaposleni = cbZaposleni.getSelectedItem().toString();
 					Bibliotekar bibliotekar = biblioteka.nadjiBibliotekara(idZaposleni);
-					String idClan = ((Clan)cbClan.getSelectedItem()).getId();
+					String idClan = cbClan.getSelectedItem().toString();
 					Clan clan = biblioteka.nadjiClana(idClan);
-					String idPrimjerak = ((PrimjerakKnjige)cbPrimjerak.getSelectedItem()).getId();
+					String idPrimjerak = cbPrimjerak.getSelectedItem().toString();
 					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(idPrimjerak);
 
 
 					
 					if(primjerak == null) { // DODAVANJE:
-						Iznajmljivanje novo = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, null, null, null);
+						Iznajmljivanje novo = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, bibliotekar, clan, primjerak);
 						biblioteka.dodajIznajmljivanje(novo);
 
 					}else { // IZMJENA:
@@ -161,7 +161,7 @@ public class IznajmljivanjaForma extends JFrame{
 		cbClan.setSelectedItem(iznajmljivanje.getClan().getId());
 		if(!(cbPrimjerak.getItemCount()== 0)) {
 			
-			cbPrimjerak.addItem(iznajmljivanje.getPrimjerak());
+			cbPrimjerak.addItem(iznajmljivanje.getPrimjerak().getId());
 		}
 
 
