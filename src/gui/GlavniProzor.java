@@ -107,6 +107,31 @@ public class GlavniProzor extends JFrame{
 			}
 		});
 		
+		primjerciItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PrimjerciProzor pp = new PrimjerciProzor(biblioteka);
+				pp.setVisible(true);
+			}
+		});
+		
+		zanroviItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ZanroviProzor zp = new ZanroviProzor(biblioteka);
+				zp.setVisible(true);
+			}
+		});
+		
+		iznajmljivanjaItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IznajmljivanjaProzor ip = new IznajmljivanjaProzor(biblioteka);
+				ip.setVisible(true);
+			}
+		});
+		
+		
 
 	}
 	

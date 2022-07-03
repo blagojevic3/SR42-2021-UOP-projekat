@@ -17,7 +17,7 @@ public class PrimjerakKnjige {
 	
 	public PrimjerakKnjige() {
 		
-		this.original = null;
+		this.original = new Knjiga();
 		this.broj_strana = 0;
 		this.godina_stampanja = 0;
 		this.jezik_stampanja = null;

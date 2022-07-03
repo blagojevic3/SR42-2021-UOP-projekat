@@ -14,13 +14,12 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import gui.formeAddEdit.PrimjerciForma;
+import gui.formeAddEdit.IznajmljivanjaForma;
 import main.ProjekatMain;
-
 import model.Biblioteka;
-import model.PrimjerakKnjige;
+import model.Iznajmljivanje;
 
-public class PrimjerciProzor extends JFrame {
+public class IznajmljivanjaProzor extends JFrame {
 	
 	private JToolBar mainToolbar = new JToolBar();
 	private JButton btnAdd = new JButton();
@@ -28,13 +27,13 @@ public class PrimjerciProzor extends JFrame {
 	private JButton btnDelete = new JButton();
 	
 	private DefaultTableModel tableModel;
-	private JTable primjerciTabela;	
+	private JTable iznajmljivanjaTabela;	
 	private Biblioteka biblioteka;
 	
-	public PrimjerciProzor(Biblioteka biblioteka) {
+	public IznajmljivanjaProzor(Biblioteka biblioteka) {
 		
 		this.biblioteka = biblioteka;
-		setTitle("Primjerci knjiga");
+		setTitle("Iznajmljivanja");
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -56,31 +55,32 @@ public class PrimjerciProzor extends JFrame {
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
 		
-		String[] zaglavlja = new String[] {"ID", "Original", "Broj strana", "Godina stampanja", "Jezik stampanja","Tip poveza"};
+		String[] zaglavlja = new String[] {"ID", "Datum iznajmljivanja(dd-mm-gggg)", "Datum vracanja (dd-mm-gggg)", "Zaposleni", "Clan","Primjerak knjige"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimjerci().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimjerci().size(); i++) {
-			PrimjerakKnjige primjerak = biblioteka.sviNeobrisaniPrimjerci().get(i);
+			Iznajmljivanje iznajmljivanje = biblioteka.svaNeobrisanaIznajmljivanja().get(i);
 			
-			sadrzaj[i][0] = primjerak.getOriginal();
-			sadrzaj[i][1] = primjerak.getBroj_strana();
-			sadrzaj[i][2] = primjerak.getGodina_stampanja();
-			sadrzaj[i][3] = primjerak.getJezik_stampanja();
-			sadrzaj[i][4] = primjerak.getTip();
+			sadrzaj[i][0] = iznajmljivanje.getId();
+			sadrzaj[i][1] = iznajmljivanje.getDatum_iznajmljivanja();
+			sadrzaj[i][2] = iznajmljivanje.getDatum_vracanja();
+			sadrzaj[i][3] = iznajmljivanje.getZaposleni();
+			sadrzaj[i][4] = iznajmljivanje.getClan();
+			sadrzaj[i][5] = iznajmljivanje.getPrimjerak();
 
 			
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		primjerciTabela = new JTable(tableModel);
+		iznajmljivanjaTabela = new JTable(tableModel);
 		
-		primjerciTabela.setRowSelectionAllowed(true);
-		primjerciTabela.setColumnSelectionAllowed(false);
-		primjerciTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		primjerciTabela.setDefaultEditor(Object.class, null);
-		primjerciTabela.getTableHeader().setReorderingAllowed(false);
+		iznajmljivanjaTabela.setRowSelectionAllowed(true);
+		iznajmljivanjaTabela.setColumnSelectionAllowed(false);
+		iznajmljivanjaTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		iznajmljivanjaTabela.setDefaultEditor(Object.class, null);
+		iznajmljivanjaTabela.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(primjerciTabela);
+		JScrollPane scrollPane = new JScrollPane(iznajmljivanjaTabela);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 	
@@ -88,21 +88,21 @@ public class PrimjerciProzor extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = primjerciTabela.getSelectedRow();
+				int red = iznajmljivanjaTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
 					String id = tableModel.getValueAt(red, 0).toString();
-					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(id);
+					Iznajmljivanje iznajmljivanje = biblioteka.nadjiIznajmljivanje(id);
 					
 					int izbor = JOptionPane.showConfirmDialog(null, 
-							"Da li ste sigurni da zelite da obrisete primjerak?", 
-							id + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
+							"Da li ste sigurni da zelite da obrisete iznajmljivanje?", 
+							  " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_OPTION) {
-						primjerak.setObrisan(true);
+						iznajmljivanje.setObrisan(true);
 						tableModel.removeRow(red);
-						biblioteka.izbrisiPrimjerak(primjerak);
-						biblioteka.snimiPrimjerke(ProjekatMain.primjerci_FAJL);
+						biblioteka.izbrisiIznajmljivanje(iznajmljivanje);
+						biblioteka.snimiIznajmljivanje(ProjekatMain.iznajmljivanja_FAJL);
 
 					}
 				}
@@ -112,8 +112,8 @@ public class PrimjerciProzor extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PrimjerciForma pf = new PrimjerciForma(biblioteka, null);
-				pf.setVisible(true);
+				IznajmljivanjaForma iznf = new IznajmljivanjaForma(biblioteka, null);
+				iznf.setVisible(true);
 			}
 		});
 		
@@ -121,22 +121,21 @@ public class PrimjerciProzor extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = primjerciTabela.getSelectedRow();
+				int red = iznajmljivanjaTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
 					String id = tableModel.getValueAt(red, 0).toString();
-					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(id);
-					if(primjerak == null) {
-						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja primjerka sa ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
+					Iznajmljivanje iznajmljivanje = biblioteka.nadjiIznajmljivanje(id);
+					if(iznajmljivanje == null) {
+						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja iznajmljivanja sa ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
 
-						PrimjerciForma pf = new PrimjerciForma(biblioteka, primjerak);
-						pf.setVisible(true);
+						IznajmljivanjaForma iznf = new IznajmljivanjaForma(biblioteka, iznajmljivanje);
+						iznf.setVisible(true);
 					}
 				}
 			}
 		});
 	}
-
 }

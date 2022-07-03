@@ -191,14 +191,7 @@ public class Biblioteka {
     	return null;
     }
     
-    public Knjiga nadjiKnjigu(PrimjerakKnjige p) {
-    	for(Knjiga knjiga:sveNeobrisaneKnjige()) {
-    		if (knjiga.get) {
-    			return knjiga;
-    		}
-    	}
-    	return null;
-    }
+
     public Knjiga nadjiKnjigu(String id) {
     	for(Knjiga knjiga:knjige) {
     		if (knjiga.getId().equals(id)) {
@@ -346,9 +339,10 @@ public class Biblioteka {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (Iznajmljivanje iznajmljivanje : iznajmljivanja) {
-				content += iznajmljivanje.getId() + "|" + iznajmljivanje.getZaposleni() + "|"
-				+ iznajmljivanje.getClan()+"|"+ iznajmljivanje.getPrimjerak()+"|"
-				+ iznajmljivanje.getDatum_iznajmljivanja() + "|" + iznajmljivanje.getDatum_vracanja()+"|"
+				
+				content += iznajmljivanje.getId() + "|" + iznajmljivanje.getDatum_iznajmljivanja() + "|"
+				+ iznajmljivanje.getDatum_vracanja()+"|"+ iznajmljivanje.getZaposleni().getId()+"|"
+				+ iznajmljivanje.getClan().getId() + "|" + iznajmljivanje.getPrimjerak().getId()+"|"
 				+ iznajmljivanje.isObrisan()+"\n";
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -492,12 +486,13 @@ public class Biblioteka {
 			while ((line = reader.readLine()) != null) {
 				String[] split = line.split("\\|");
 				String id = split[0];
-				Knjiga original = null;
-				for(Knjiga k:knjige) {
-					if(k.getId().equals(split[1])) {
-						original = k;
-					}
-				}
+				
+				String idKnjige = split[1];
+				Knjiga original = new Knjiga();
+				Biblioteka biblioteka = new Biblioteka();
+				biblioteka.ucitajKnjige("knjige.txt");
+				original = biblioteka.nadjiKnjigu(idKnjige);
+				
 				String broj_stranaString = split[2];
 				int broj_strana = Integer.parseInt(broj_stranaString);
 				String godina_stampanjaString = split[3];
@@ -553,24 +548,21 @@ public class Biblioteka {
 				String id = split[0];
 				String datum_iznajmljivanja = split[1];
 				String datum_vracanja = split[2];
-				Zaposleni iznajmljivac = null;
-				for(Zaposleni z:zaposleni) {
-					if(z.getId().equals(split[3])) {
-						iznajmljivac = z;
-					}
-				}
-				Clan clan = null;
-				for(Clan c:clanovi) {
-					if(c.getId().equals(split[4])) {
-						clan = c;
-					}
-				}
-				PrimjerakKnjige primjerak = null;
-				for(PrimjerakKnjige p:primjerci) {
-					if(p.getId().equals(split[5])) {
-						primjerak = p;
-					}
-				}
+				String idZaposlenog = split[3];
+				Zaposleni zaposlen = new Zaposleni();
+				Biblioteka zaposleni = new Biblioteka();
+				zaposleni.ucitajAdministratore("administratori.txt");
+				zaposlen = zaposleni.nadjiAdministratora(idZaposlenog);
+				String idClana = split[4];
+				Clan clan = new Clan();
+				Biblioteka clanovi = new Biblioteka();
+				clanovi.ucitajClanove("clanovi.txt");
+				clan = clanovi.nadjiClana(idClana);
+				String idPrimjerka = split[5];
+				PrimjerakKnjige primjerakKnjige = new PrimjerakKnjige();
+				Biblioteka primjerci = new Biblioteka();
+				primjerci.ucitajPrimjerke("primjerci.txt");
+				primjerakKnjige = primjerci.nadjiPrimjerak(idPrimjerka);
 
 
 				boolean obrisan = Boolean.parseBoolean(split[6]);
@@ -578,8 +570,8 @@ public class Biblioteka {
 				
 				
 				
-				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datum_iznajmljivanja, datum_vracanja, iznajmljivac, clan,
-						primjerak, obrisan);
+				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datum_iznajmljivanja, datum_vracanja, zaposlen, clan,
+						primjerakKnjige, obrisan);
 				iznajmljivanja.add(iznajmljivanje);
 			}
 			reader.close();
@@ -744,7 +736,7 @@ public class Biblioteka {
 		return neobrisani;
 	}
     
-    public Administrator login(String korisnickoIme, String lozinka) {
+    public Administrator loginAdministrator(String korisnickoIme, String lozinka) {
 		for(Administrator administrator : administratori) {
 			if(administrator.getKorisnicko_ime().equalsIgnoreCase(korisnickoIme) &&
 					administrator.getLozinka().equals(lozinka) && !administrator.isObrisan()) {
@@ -753,4 +745,15 @@ public class Biblioteka {
 		}
 		return null;
 	}
+    
+    public Bibliotekar loginBibliotekar(String korisnickoIme, String lozinka) {
+		for(Bibliotekar bibliotekar : bibliotekari) {
+			if(bibliotekar.getKorisnicko_ime().equalsIgnoreCase(korisnickoIme) &&
+					bibliotekar.getLozinka().equals(lozinka) && !bibliotekar.isObrisan()) {
+				return bibliotekar;
+			}
+		}
+		return null;
+	}
+    
 }

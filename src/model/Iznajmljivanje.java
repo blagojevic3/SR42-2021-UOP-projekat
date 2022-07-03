@@ -38,6 +38,18 @@ public class Iznajmljivanje {
 		this.primjerak = primjerak;
 		this.obrisan = obrisan;
 	}
+	public Iznajmljivanje(String id,String datum_iznajmljivanja, String datum_vracanja, Zaposleni zaposleni, Clan clan,
+			PrimjerakKnjige primjerak) {
+		super();
+		
+		this.id = id;
+		this.datum_iznajmljivanja = datum_iznajmljivanja;
+		this.datum_vracanja = datum_vracanja;
+		this.zaposleni = zaposleni;
+		this.clan = clan;
+		this.primjerak = primjerak;
+
+	}
 	
 	public String getId() {
 		return id;

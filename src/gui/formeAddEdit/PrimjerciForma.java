@@ -18,6 +18,8 @@ import enumeracije.TipPoveza;
 import main.ProjekatMain;
 import model.Administrator;
 import model.Biblioteka;
+import model.Bibliotekar;
+import model.Clan;
 import model.Knjiga;
 import model.PrimjerakKnjige;
 import net.miginfocom.swing.MigLayout;
@@ -44,12 +46,19 @@ public class PrimjerciForma extends JFrame {
 	private JButton btnCanel = new JButton("Cancel");
 	
 	private Biblioteka biblioteka;
+	private Biblioteka knjige;
 	private PrimjerakKnjige primjerak;
 	
 	public PrimjerciForma(Biblioteka biblioteka, PrimjerakKnjige primjerak) {
 		
 		this.biblioteka = biblioteka;
 		this.primjerak = primjerak;
+		
+		this.knjige = new Biblioteka();
+		this.knjige.ucitajKnjige("knjige.txt");
+		for(Knjiga knjiga : knjige.sveNeobrisaneKnjige()) {
+			cbKnjiga.addItem(knjiga.getId());
+		}
 		
 		if(primjerak == null) {
 			setTitle("Dodavanje Primjerka");
@@ -99,7 +108,7 @@ public class PrimjerciForma extends JFrame {
 				if(validacija()) {
 					
 					String id = txtId.getText().trim();
-					String knjigaId = cbKnjiga.getSelectedItem().toString();
+					String knjigaId = ((Knjiga)cbKnjiga.getSelectedItem()).getId();
 					Knjiga knjiga = biblioteka.nadjiKnjigu(knjigaId);
 					int broj_strana = Integer.parseInt(txtBrojStr.getText().trim());
 					int godina_stampanja = Integer.parseInt(txtGodinaStampanja.getText().trim());
@@ -109,17 +118,23 @@ public class PrimjerciForma extends JFrame {
 
 					
 					if(primjerak == null) { // DODAVANJE:
-						PrimjerakKnjige novi = new PrimjerakKnjige(id, null, broj_strana, godina_stampanja, jezik, iznajmljena,tip);
+						PrimjerakKnjige novi = new PrimjerakKnjige(id, knjigaId, broj_strana, godina_stampanja, jezik, iznajmljena,tip);
 						biblioteka.dodajPrimjerak(novi);
+
 					}else { // IZMJENA:
 						
 						primjerak.setId(id);
-						Knjiga staraKnjiga = biblioteka.nadjiKnjigu(primjerak);
+						primjerak.setOriginal(knjiga);
+						primjerak.setBroj_strana(broj_strana);
+						primjerak.setGodina_stampanja(godina_stampanja);
+						primjerak.setJezik_stampanja(jezik);
+						primjerak.setIznajmljena(iznajmljena);
+						primjerak.setTip(tip);
 
 					}
-					biblioteka.snimiAdministratore(ProjekatMain.administratori_FAJL);
-					AdministratoriForma.this.dispose();
-					AdministratoriForma.this.setVisible(false);
+					biblioteka.snimiPrimjerke(ProjekatMain.primjerci_FAJL);
+					PrimjerciForma.this.dispose();
+					PrimjerciForma.this.setVisible(false);
 				}
 			}
 		});
@@ -127,60 +142,37 @@ public class PrimjerciForma extends JFrame {
 	
 	private void popuniPolja() {
 		
-		txtId.setText(administrator.getId());
-		txtIme.setText(administrator.getIme());
-		txtPrezime.setText(administrator.getPrezime());
-		txtJmbg.setText(administrator.getJmbg());
-		txtAdresa.setText(administrator.getJmbg());
-		cbPol.setSelectedItem(administrator.getPol());
-		txtPlata.setText(administrator.getPlata());
-		txtKorisnickoIme.setText(administrator.getKorisnicko_ime());
-		afLozinka.setText(administrator.getLozinka());
+		
+		txtId.setText(primjerak.getId());
+		Knjiga knjiga = new Knjiga();
+		cbKnjiga.setSelectedItem(knjiga.getId());
+		txtBrojStr.setText(String.valueOf(primjerak.getBroj_strana()));
+		txtGodinaStampanja.setText(String.valueOf(primjerak.getGodina_stampanja()));
+		cbJezik.setSelectedItem(primjerak.getJezik_stampanja());
+		cbIznajmljena.setSelected(primjerak.isIznajmljena());
+		cbTip.setSelectedItem(primjerak.getTip());
 
 	}
 	
 	private boolean validacija() {
 		boolean ok = true;
-		String poruka = "Molimo popravite sledece greske u unosu:\n";
+		String poruka = "Molimo popravite sljedece greske u unosu:\n";
 		
 		
 		if(txtId.getText().trim().equals("")) {
 			poruka += "- Unesite ID\n";
 			ok = false;
 		}
-		if(txtIme.getText().trim().equals("")) {
-			poruka += "- Unesite ime\n";
+		if(txtBrojStr.getText().trim().equals("")) {
+			poruka += "- Unesite broj strana\n";
 			ok = false;
 		}
-		if(txtPrezime.getText().trim().equals("")) {
-			poruka += "- Unesite prezime\n";
+		if(txtGodinaStampanja.getText().trim().equals("")) {
+			poruka += "- Unesite godinu stampanja\n";
 			ok = false;
 		}
-		if(txtJmbg.getText().trim().equals("")) {
-			poruka += "- Unesite JMBG\n";
-			ok = false;
-		}
-		if(txtAdresa.getText().trim().equals("")) {
-			poruka += "- Unesite adresu\n";
-			ok = false;
-		}
-		if(txtKorisnickoIme.getText().trim().equals("")) {
-			poruka += "- Unesite korisnicko ime\n";
-			ok = false;
-		}else if(administrator == null){
-			String korisnickoIme = txtKorisnickoIme.getText().trim();
-			Administrator pronadjeni = biblioteka.nadjiAdministratora(korisnickoIme);
-			if(pronadjeni != null) {
-				poruka += "- Administrator sa tim korisnickim imenom vec postoji\n";
-				ok = false;
-			}
-		}
+
 		
-		String sifra = new String(afLozinka.getPassword()).trim();
-		if(sifra.equals("")) {
-			poruka += "- Unesite lozinku\n";
-			ok = false;
-		}
 		
 		if(ok == false) {
 			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);

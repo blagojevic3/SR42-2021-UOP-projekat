@@ -73,13 +73,14 @@ public class LoginProzor extends JFrame {
 				if(korisnikoIme.equals("") || lozinka.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste unijeli sve podatke za prijavu.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					Zaposleni prijavljeni = biblioteka.login(korisnikoIme, lozinka);
-					if(prijavljeni == null) {
+					Zaposleni administrator = biblioteka.loginAdministrator(korisnikoIme, lozinka);
+					Zaposleni bibliotekar = biblioteka.loginBibliotekar(korisnikoIme, lozinka);
+					if(administrator == null || bibliotekar ==null) {
 						JOptionPane.showMessageDialog(null, "Pogrešni login podaci.", "Greška", JOptionPane.WARNING_MESSAGE);
 					}else {
 						LoginProzor.this.dispose();
 						LoginProzor.this.setVisible(false);
-						GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni);
+						GlavniProzor gp = new GlavniProzor(biblioteka, administrator);
 						gp.setVisible(true);
 					}
 				}

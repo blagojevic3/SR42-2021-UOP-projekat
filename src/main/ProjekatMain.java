@@ -39,7 +39,7 @@ public class ProjekatMain {
 		biblioteka.ucitajZanrove(zanrovi_FAJL);
 		biblioteka.ucitajClanarine(clanarine_FAJL);
 		biblioteka.ucitajIznajmljivanje(iznajmljivanja_FAJL);
-		
+
 		LoginProzor lp = new LoginProzor(biblioteka);
 		lp.setVisible(true);
 

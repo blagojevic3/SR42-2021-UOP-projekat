@@ -100,7 +100,7 @@ public class ClanarineForma extends JFrame {
 						clanarina.setCijena(cijena);
 						clanarina.setTipkarte(tipkarte);
 						clanarina.setDatum_posljednje_uplate(datum);
-						clanarina.setBroj_mjeseci(brojmjeseci);;
+						clanarina.setBroj_mjeseci(brojmjeseci);
 
 					}
 					biblioteka.snimiClanarine(ProjekatMain.clanarine_FAJL);

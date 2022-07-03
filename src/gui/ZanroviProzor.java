@@ -14,13 +14,12 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import gui.formeAddEdit.PrimjerciForma;
+import gui.formeAddEdit.ZanroviForma;
 import main.ProjekatMain;
-
 import model.Biblioteka;
-import model.PrimjerakKnjige;
+import model.Zanr;
 
-public class PrimjerciProzor extends JFrame {
+public class ZanroviProzor extends JFrame{
 	
 	private JToolBar mainToolbar = new JToolBar();
 	private JButton btnAdd = new JButton();
@@ -28,13 +27,13 @@ public class PrimjerciProzor extends JFrame {
 	private JButton btnDelete = new JButton();
 	
 	private DefaultTableModel tableModel;
-	private JTable primjerciTabela;	
+	private JTable zanroviTabela;	
 	private Biblioteka biblioteka;
 	
-	public PrimjerciProzor(Biblioteka biblioteka) {
+	public ZanroviProzor(Biblioteka biblioteka) {
 		
 		this.biblioteka = biblioteka;
-		setTitle("Primjerci knjiga");
+		setTitle("Zanrovi");
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -56,31 +55,29 @@ public class PrimjerciProzor extends JFrame {
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
 		
-		String[] zaglavlja = new String[] {"ID", "Original", "Broj strana", "Godina stampanja", "Jezik stampanja","Tip poveza"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimjerci().size()][zaglavlja.length];
+		String[] zaglavlja = new String[] {"Oznaka", "Opis"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniZanrovi().size()][zaglavlja.length];
 		
-		for(int i=0; i<biblioteka.sviNeobrisaniPrimjerci().size(); i++) {
-			PrimjerakKnjige primjerak = biblioteka.sviNeobrisaniPrimjerci().get(i);
+		for(int i=0; i<biblioteka.sviNeobrisaniZanrovi().size(); i++) {
+			Zanr zanr = biblioteka.sviNeobrisaniZanrovi().get(i);
 			
-			sadrzaj[i][0] = primjerak.getOriginal();
-			sadrzaj[i][1] = primjerak.getBroj_strana();
-			sadrzaj[i][2] = primjerak.getGodina_stampanja();
-			sadrzaj[i][3] = primjerak.getJezik_stampanja();
-			sadrzaj[i][4] = primjerak.getTip();
+			sadrzaj[i][0] = zanr.getOznaka();
+			sadrzaj[i][1] = zanr.getOpis();
+
 
 			
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		primjerciTabela = new JTable(tableModel);
+		zanroviTabela = new JTable(tableModel);
 		
-		primjerciTabela.setRowSelectionAllowed(true);
-		primjerciTabela.setColumnSelectionAllowed(false);
-		primjerciTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		primjerciTabela.setDefaultEditor(Object.class, null);
-		primjerciTabela.getTableHeader().setReorderingAllowed(false);
+		zanroviTabela.setRowSelectionAllowed(true);
+		zanroviTabela.setColumnSelectionAllowed(false);
+		zanroviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		zanroviTabela.setDefaultEditor(Object.class, null);
+		zanroviTabela.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(primjerciTabela);
+		JScrollPane scrollPane = new JScrollPane(zanroviTabela);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 	
@@ -88,21 +85,21 @@ public class PrimjerciProzor extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = primjerciTabela.getSelectedRow();
+				int red = zanroviTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String id = tableModel.getValueAt(red, 0).toString();
-					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(id);
+					String oznaka = tableModel.getValueAt(red, 0).toString();
+					Zanr zanr = biblioteka.nadjiZanr(oznaka);
 					
 					int izbor = JOptionPane.showConfirmDialog(null, 
-							"Da li ste sigurni da zelite da obrisete primjerak?", 
-							id + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
+							"Da li ste sigurni da zelite da obrisete zanr?", 
+							oznaka + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_OPTION) {
-						primjerak.setObrisan(true);
+						zanr.setObrisan(true);
 						tableModel.removeRow(red);
-						biblioteka.izbrisiPrimjerak(primjerak);
-						biblioteka.snimiPrimjerke(ProjekatMain.primjerci_FAJL);
+						biblioteka.izbrisiZanr(zanr);
+						biblioteka.snimiZanrove(ProjekatMain.zanrovi_FAJL);
 
 					}
 				}
@@ -112,8 +109,8 @@ public class PrimjerciProzor extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PrimjerciForma pf = new PrimjerciForma(biblioteka, null);
-				pf.setVisible(true);
+				ZanroviForma zf = new ZanroviForma(biblioteka, null);
+				zf.setVisible(true);
 			}
 		});
 		
@@ -121,18 +118,18 @@ public class PrimjerciProzor extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = primjerciTabela.getSelectedRow();
+				int red = zanroviTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String id = tableModel.getValueAt(red, 0).toString();
-					PrimjerakKnjige primjerak = biblioteka.nadjiPrimjerak(id);
-					if(primjerak == null) {
-						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja primjerka sa ID-om", "Greska", JOptionPane.WARNING_MESSAGE);
+					String oznaka = tableModel.getValueAt(red, 0).toString();
+					Zanr zanr = biblioteka.nadjiZanr(oznaka);
+					if(zanr == null) {
+						JOptionPane.showMessageDialog(null, "Greska prilikom pronalazenja zanra sa tom oznakom", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
 
-						PrimjerciForma pf = new PrimjerciForma(biblioteka, primjerak);
-						pf.setVisible(true);
+						ZanroviForma zf = new ZanroviForma(biblioteka, zanr);
+						zf.setVisible(true);
 					}
 				}
 			}

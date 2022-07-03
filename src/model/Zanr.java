@@ -22,6 +22,12 @@ public class Zanr {
 		this.opis = opis;
 		this.obrisan = obrisan;
 	}
+	public Zanr(String oznaka, String opis) {
+
+		this.oznaka = oznaka;
+		this.opis = opis;
+
+	}
 
 	public String getOznaka() {
 		return oznaka;
