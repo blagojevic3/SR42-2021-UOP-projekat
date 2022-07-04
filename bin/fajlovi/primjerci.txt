@@ -1,3 +1,1 @@
-sadasd|001|100|222|engleski|true|mek|false
-sadas|001|1111|1111|engleski|true|mek|false
 idid123|001|2002|2003|engleski|true|mek|false

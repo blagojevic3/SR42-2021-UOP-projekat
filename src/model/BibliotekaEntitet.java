@@ -107,7 +107,7 @@ public class BibliotekaEntitet {
 		return null;
 	}
 	
-	 public void snimi(BibliotekaEntitet biblioteka) {
+	 public void snimiBiblioteku(BibliotekaEntitet biblioteka) {
 			try {
 				File file = new File("src/fajlovi/" + "biblioteka.txt");
 				String content = biblioteka.getNaziv() + ";" + biblioteka.getAdresa() + ";"

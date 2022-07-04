@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import gui.formeAddEdit.BibliotekaEntForma;
 import model.Biblioteka;
 import model.BibliotekaEntitet;
 import model.Zaposleni;
@@ -31,13 +32,14 @@ public class GlavniProzor extends JFrame{
 	private JMenuItem primjerciItem = new JMenuItem("Primjerci");
 	private JMenuItem zanroviItem = new JMenuItem("Zanrovi");
 	private JMenuItem iznajmljivanjaItem = new JMenuItem("Iznajmljivanja");
+	private JButton btnEdit = new JButton("Izmjeni");
 	
 	private JLabel lblnaziv = new JLabel();
 	private JLabel lbladresa = new JLabel();
 	private JLabel lbltelefon = new JLabel();
 	private JLabel lblpocetakRadnog = new JLabel();
 	private JLabel lblkrajRadnog = new JLabel();
-	private JButton btnEdit = new JButton();
+
 	
 	
 	private JLabel lblGreet = new JLabel("Dobrodosli!");
@@ -94,8 +96,7 @@ public class GlavniProzor extends JFrame{
 		add(lbltelefon);
 		add(lblpocetakRadnog);
 		add(lblkrajRadnog);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/icons/edit.gif"));
-		btnEdit.setIcon(editIcon);
+		add(btnEdit);
 		
 		
 			
@@ -166,6 +167,17 @@ public class GlavniProzor extends JFrame{
 				ip.setVisible(true);
 			}
 		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekaEntForma bef = new BibliotekaEntForma(GlavniProzor.this, "Biblioteka", true, bibliotekaInfo);
+				bef.setVisible(true);
+				bibliotekaInfo = bibliotekaInfo.ucitajBiblioteku("biblioteka.txt");
+				ucitavanje();
+			}
+		});		
 		
 		
 
