@@ -19,6 +19,7 @@ import model.Biblioteka;
 import model.Bibliotekar;
 import model.Clan;
 import model.Iznajmljivanje;
+import model.Knjiga;
 import model.PrimjerakKnjige;
 import model.Zaposleni;
 import net.miginfocom.swing.MigLayout;
@@ -176,6 +177,14 @@ public class IznajmljivanjaForma extends JFrame{
 		if(txtId.getText().trim().equals("")) {
 			poruka += "- Unesite ID\n";
 			ok = false;
+		}
+		else if(iznajmljivanje == null){
+			String id = txtId.getText().trim();
+			Iznajmljivanje pronadjeno = biblioteka.nadjiIznajmljivanje(id);
+			if(pronadjeno != null) {
+				poruka += "- Iznajmljivanje sa tim ID-om vec postoji\n";
+				ok = false;
+			}
 		}
 		if(txtDIznajmljivanja.getText().trim().equals("")) {
 			poruka += "- Unesite datum iznajmljivanja\n";
